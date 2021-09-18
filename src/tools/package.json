@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && move build ../../",
+    "build": "react-scripts build && move build docs && move docs ../../",
+    "builde": "react-scripts build && xcopy /E /H /C /I build docs && move docs ../../",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
