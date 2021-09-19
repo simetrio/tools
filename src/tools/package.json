@@ -25,7 +25,7 @@
     "build-clean": "rimraf ../../docs",
     "build-copy": "copyfiles -V -u 1 build/* build/*.* build/static/css/*.* build/static/js/*.* build/static/media/*.* ../../docs",
     "build-create-pages": "npm run create-main && npm run create-guid-generator",
-    "create-main": "replace-in-file {Title} \"Some tools\" ../../docs/index.html",
+    "create-main": "replace-in-file {Title} \"Some Tools\" ../../docs/index.html",
     "create-guid-generator": "copyfiles -V -u 1 build/index.html ../../docs/tools/guid-generator && replace-in-file {Title} \"Online Guid Generator - Some Tools\" ../../docs/tools/guid-generator/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
