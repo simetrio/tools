@@ -1,7 +1,7 @@
-import { Switch, Route, Redirect, RouteComponentProps } from "react-router";
-import { GuidGenerator } from "../guid-generator/GuidGenerator";
-import { Main } from "../main/Main";
+import { Switch, Route, Redirect, RouteComponentProps } from "react-router-dom";
+import { Main } from "./Main";
 import { GuidGeneratorRoute } from "./Routes";
+import { GuidGenerator } from "../tools/guid-generator/GuidGenerator";
 
 export const Router: React.FC = () => {
     return (

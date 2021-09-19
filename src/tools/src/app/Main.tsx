@@ -1,4 +1,4 @@
-import { AllRoutes } from "../app/Routes"
+import { AllRoutes } from "./Routes"
 
 export const Main: React.FC = () => {
     return (
