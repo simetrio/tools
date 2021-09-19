@@ -33,7 +33,7 @@ export const GuidGenerator: React.FC = () => {
 
     return (
         <>
-            <h1>Online Guid generator</h1>
+            <h1>Online Guid Generator</h1>
             <MDBCol md="4" className="mb-3">
                 <MDBInput
                     value={formValue.count.toString()}
