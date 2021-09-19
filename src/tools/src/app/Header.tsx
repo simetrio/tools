@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
         <>
             <MDBNavbar expand="lg" dark bgColor="primary">
                 <MDBContainer fluid>
-                    <MDBNavbarBrand href="/">Tools</MDBNavbarBrand>
+                    <MDBNavbarBrand href="/">Olrix Tools</MDBNavbarBrand>
 
                     <MDBNavbarToggler
                         aria-controls="navbarSupportedContent"

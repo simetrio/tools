@@ -20,7 +20,7 @@ export const GuidGenerator: React.FC = () => {
     });
 
     const onChange = (e: any) => {
-        setFormValue({ ...formValue, [e.target.name]: e.target.value });
+        setFormValue({ ...formValue, [e.target.name]: e.currentTarget.value });
     };
 
     const onChangeBoolean = (e: any) => {
