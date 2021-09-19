@@ -24,7 +24,9 @@
     "build": "react-scripts build && npm run build-clean && npm run build-copy && npm run build-create-pages",
     "build-clean": "rimraf ../../docs",
     "build-copy": "copyfiles -V -u 1 build/* build/*.* build/static/css/*.* build/static/js/*.* build/static/media/*.* ../../docs",
-    "build-create-pages": "copyfiles -V -u 1 build/index.html ../../docs/tools/guid-generator",
+    "build-create-pages": "npm run create-main && npm run create-guid-generator",
+    "create-main": "replace-in-file {Title} \"Some tools\" ../../docs/index.html",
+    "create-guid-generator": "copyfiles -V -u 1 build/index.html ../../docs/tools/guid-generator && replace-in-file {Title} \"Online Guid Generator - Some Tools\" ../../docs/tools/guid-generator/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -48,6 +50,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
+    "replace-in-file": "^6.2.0",
     "rimraf": "^3.0.2"
   }
 }
