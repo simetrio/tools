@@ -18,8 +18,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run build-copy",
-    "build-copy": "copyfiles -V -u 1 build/*.* build/static/css/*.* build/static/js/*.* build/static/media/*.* ../../docs",
+    "build": "react-scripts build && npm run build-clean && npm run build-copy",
+    "build-clean": "rimraf ../../docs",
+    "build-copy": "copyfiles -V -u 1 build/* build/*.* build/static/css/*.* build/static/js/*.* build/static/media/*.* ../../docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "rimraf": "^3.0.2"
   }
 }
