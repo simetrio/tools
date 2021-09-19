@@ -1,8 +1,8 @@
 import { Switch, Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { Main } from "./Main";
-import { GuidGeneratorRoute, UrlEncoderRoute } from "./Routes";
+import { GuidGeneratorRoute, UrlEncodeDecodeRoute } from "./Routes";
 import { GuidGenerator } from "../tools/guid-generator/GuidGenerator";
-import { UrlEncoder } from "../tools/url-encoder/UrlEncoder";
+import { UrlEncodeDecode } from "../tools/url-encode-decode/UrlEncodeDecode";
 
 export const Router: React.FC = () => {
     return (
@@ -18,7 +18,7 @@ const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
     return (
         <Switch>
             <Route path={`${props.match.url}/${GuidGeneratorRoute.url}`} component={GuidGenerator} />
-            <Route path={`${props.match.url}/${UrlEncoderRoute.url}`} component={UrlEncoder} />
+            <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Redirect to="/" />
         </Switch>
     )

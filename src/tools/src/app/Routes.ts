@@ -8,12 +8,12 @@ export const GuidGeneratorRoute: Route = {
     name: "Guid Generator", 
 }
 
-export const UrlEncoderRoute: Route = { 
+export const UrlEncodeDecodeRoute: Route = { 
     url: "url-encode-decode", 
     name: "Url Encode/Decode", 
 }
 
 export const AllRoutes: Route[] = [
     GuidGeneratorRoute,
-    UrlEncoderRoute,
+    UrlEncodeDecodeRoute,
 ]

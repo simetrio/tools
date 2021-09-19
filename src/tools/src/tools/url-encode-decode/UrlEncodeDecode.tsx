@@ -6,7 +6,7 @@ interface FormValue {
     encoded: string,
 }
 
-export const UrlEncoder: React.FC = () => {
+export const UrlEncodeDecode: React.FC = () => {
     const [formValue, setFormValue] = useState<FormValue>({
         decoded: '',
         encoded: '',
