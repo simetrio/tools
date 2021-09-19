@@ -13,7 +13,13 @@ export const UrlEncodeDecodeRoute: Route = {
     name: "Url Encode/Decode", 
 }
 
+export const HtmlEncodeDecodeRoute: Route = { 
+    url: "html-encode-decode", 
+    name: "Html Encode/Decode", 
+}
+
 export const AllRoutes: Route[] = [
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
+    HtmlEncodeDecodeRoute,
 ]
