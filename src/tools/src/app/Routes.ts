@@ -18,8 +18,14 @@ export const HtmlEncodeDecodeRoute: Route = {
     name: "Html Encode/Decode", 
 }
 
+export const Base64EncodeDecodeRoute: Route = { 
+    url: "base64-encode-decode", 
+    name: "Base64 Encode/Decode", 
+}
+
 export const AllRoutes: Route[] = [
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
+    Base64EncodeDecodeRoute,
 ]
