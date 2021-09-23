@@ -31,6 +31,7 @@
     "create-url-encode-decode": "copyfiles -V -u 1 build/index.html ../../docs/tools/url-encode-decode && replace-in-file {Title} \"Online Url Encode/Decode - Olrix Tools\" ../../docs/tools/url-encode-decode/index.html",
     "create-html-encode-decode": "copyfiles -V -u 1 build/index.html ../../docs/tools/html-encode-decode && replace-in-file {Title} \"Online Html Encode/Decode - Olrix Tools\" ../../docs/tools/html-encode-decode/index.html",
     "create-base64-encode-decode": "copyfiles -V -u 1 build/index.html ../../docs/tools/base64-encode-decode && replace-in-file {Title} \"Online Base64 Encode/Decode - Olrix Tools\" ../../docs/tools/base64-encode-decode/index.html",
+    "create-sha256-generator": "copyfiles -V -u 1 build/index.html ../../docs/tools/sha256-generator && replace-in-file {Title} \"Online SHA256 Generator - Olrix Tools\" ../../docs/tools/sha256-generator/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
