@@ -45,7 +45,7 @@ function decodeBase64(value: string): string {
   let enc1, enc2, enc3, enc4;
   let i = 0;
 
-  value = value.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+  value = value.replace(/[^A-Za-z0-9\+\/\=]/g, ""); //eslint-disable-line
 
   while (i < value.length) {
 
@@ -60,10 +60,10 @@ function decodeBase64(value: string): string {
 
     output = output + String.fromCharCode(chr1);
 
-    if (enc3 != 64) {
+    if (enc3 !== 64) {
       output = output + String.fromCharCode(chr2);
     }
-    if (enc4 != 64) {
+    if (enc4 !== 64) {
       output = output + String.fromCharCode(chr3);
     }
   }
