@@ -5,8 +5,10 @@ import {
     GuidGeneratorRoute, 
     HtmlEncodeDecodeRoute, 
     Sha256GeneratorRoute, 
+    TranslitFromRussianToEnglishRoute, 
     UrlEncodeDecodeRoute 
 } from "./Routes";
+import { TranslitFromRussianToEnglish } from "../tools/translit-from-russian-to-english/TranslitFromRussianToEnglish";
 import { GuidGenerator } from "../tools/guid-generator/GuidGenerator";
 import { UrlEncodeDecode } from "../tools/url-encode-decode/UrlEncodeDecode";
 import { HtmlEncodeDecode } from "../tools/html-encode-decode/HtmlEncodeDecode";
@@ -26,6 +28,7 @@ export const Router: React.FC = () => {
 const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
     return (
         <Switch>
+            <Route path={`${props.match.url}/${TranslitFromRussianToEnglishRoute.url}`} component={TranslitFromRussianToEnglish} />
             <Route path={`${props.match.url}/${GuidGeneratorRoute.url}`} component={GuidGenerator} />
             <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Route path={`${props.match.url}/${HtmlEncodeDecodeRoute.url}`} component={HtmlEncodeDecode} />

@@ -3,6 +3,11 @@ export interface Route {
     name: string,
 }
 
+export const TranslitFromRussianToEnglishRoute: Route = { 
+    url: "translit-from-russian-to-english", 
+    name: "Translit From Russian", 
+}
+
 export const GuidGeneratorRoute: Route = { 
     url: "guid-generator", 
     name: "Guid Generator", 
@@ -29,6 +34,7 @@ export const Sha256GeneratorRoute: Route = {
 }
 
 export const AllRoutes: Route[] = [
+    TranslitFromRussianToEnglishRoute,
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
