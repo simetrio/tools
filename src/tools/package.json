@@ -25,7 +25,7 @@
     "build-after": "npm run build-clean && npm run build-copy && npm run build-create-pages",
     "build-clean": "rimraf ../../docs",
     "build-copy": "copyfiles -V -u 1 build/* build/*.* build/static/css/*.* build/static/js/*.* build/static/media/*.* ../../docs",
-    "build-create-pages": "npm run create-main && npm run create-translit-from-russian-to-english && npm run create-guid-generator && npm run create-url-encode-decode && npm run create-html-encode-decode && npm run create-base64-encode-decode",
+    "build-create-pages": "npm run create-main && npm run create-translit-from-russian-to-english && npm run create-guid-generator && npm run create-url-encode-decode && npm run create-html-encode-decode && npm run create-base64-encode-decode && npm run create-sha256-generator",
     "create-main": "replace-in-file {Title} \"Olrix Tools\" ../../docs/index.html",
     "create-translit-from-russian-to-english": "copyfiles -V -u 1 build/index.html ../../docs/tools/translit-from-russian-to-english && replace-in-file {Title} \"Online Translint From Russian To English - Olrix Tools\" ../../docs/tools/translit-from-russian-to-english/index.html",
     "create-guid-generator": "copyfiles -V -u 1 build/index.html ../../docs/tools/guid-generator && replace-in-file {Title} \"Online Guid Generator - Olrix Tools\" ../../docs/tools/guid-generator/index.html",
