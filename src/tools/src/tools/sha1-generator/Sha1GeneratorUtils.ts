@@ -4,8 +4,8 @@ export const Sha1GeneratorUtils = {
 
 function encodeSha1(value: string): string {
  	let blockstart;
-  let i, j;
-  let W = new Array(80);
+	let i, j;
+	let W = new Array(80);
 	let H0 = 0x67452301;
 	let H1 = 0xEFCDAB89;
 	let H2 = 0x98BADCFE;
@@ -20,8 +20,8 @@ function encodeSha1(value: string): string {
  
 	const words: number[] = [];
 	for(i = 0; i < valueLength - 3; i += 4) {
-		j = value.charCodeAt(i)<<24 | value.charCodeAt(i+1)<<16 |
-		value.charCodeAt(i+2)<<8 | value.charCodeAt(i+3);
+		j = (value.charCodeAt(i)<<24) | (value.charCodeAt(i+1)<<16) |
+		(value.charCodeAt(i+2)<<8) | (value.charCodeAt(i+3));
 		words.push(j);
 	}
  
@@ -30,24 +30,24 @@ function encodeSha1(value: string): string {
 			i = 0x080000000;
 		break;
 		case 1:
-			i = value.charCodeAt(valueLength-1)<<24 | 0x0800000;
+			i = (value.charCodeAt(valueLength-1)<<24) | 0x0800000;
 		break;
  
 		case 2:
-			i = value.charCodeAt(valueLength-2)<<24 | value.charCodeAt(valueLength-1)<<16 | 0x08000;
+			i = (value.charCodeAt(valueLength-2)<<24) | (value.charCodeAt(valueLength-1)<<16) | 0x08000;
 		break;
  
 		case 3:
-			i = value.charCodeAt(valueLength-3)<<24 | value.charCodeAt(valueLength-2)<<16 | value.charCodeAt(valueLength-1)<<8	| 0x80;
+			i = (value.charCodeAt(valueLength-3)<<24) | (value.charCodeAt(valueLength-2)<<16) | (value.charCodeAt(valueLength-1)<<8) | 0x80;
 		break;
 	}
  
 	words.push(i);
  
-	while((words.length % 16) != 14) words.push( 0 );
+	while((words.length % 16) !== 14) words.push( 0 );
  
-	words.push( valueLength>>>29 );
-	words.push( (valueLength<<3)&0x0ffffffff );
+	words.push(valueLength>>>29);
+	words.push((valueLength<<3)&0x0ffffffff);
  
 	for (blockstart=0; blockstart<words.length; blockstart+=16) {
  
