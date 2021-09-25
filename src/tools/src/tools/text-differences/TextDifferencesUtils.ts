@@ -36,13 +36,13 @@ class TextDifferencer {
      
             for (let i = 0; i < lengthOfShorterString; i++)
             {
-                let offsetForString0 = (e == 0 ? i : string0.length - i - 1); 
-                let offsetForString1 = (e == 0 ? i : string1.length - i - 1);
+                let offsetForString0 = (e === 0 ? i : string0.length - i - 1); 
+                let offsetForString1 = (e === 0 ? i : string1.length - i - 1);
  
                 let charFromString0 = string0[offsetForString0];
                 let charFromString1 = string1[offsetForString1];
      
-                if (charFromString0 != charFromString1)
+                if (charFromString0 !== charFromString1)
                 {
                     lengthOfMatchingSubstring = i;
                     break;          
@@ -51,12 +51,12 @@ class TextDifferencer {
      
             let matchingSubstringAtExtreme: string;
  
-            if (e == 0)
+            if (e === 0)
             {
                 matchingSubstringAtExtreme = string0.substr(0, lengthOfMatchingSubstring);
                 string0 = string0.substr(lengthOfMatchingSubstring);
                 string1 = string1.substr(lengthOfMatchingSubstring);
-            } else // if (e == 1)
+            } else // if (e === 1)
             {
                 matchingSubstringAtExtreme = string0.substr(string0.length - lengthOfMatchingSubstring);
                 string0 = string0.substr(0, string0.length - lengthOfMatchingSubstring);
@@ -100,7 +100,7 @@ class TextDifferencer {
             (
 				passagePairsAll,
                 passagePairMatchingAtExtreme, 
-                (e == 0 ? 0 : passagePairsAll.length)
+                (e === 0 ? 0 : passagePairsAll.length)
             );
         }
           
@@ -121,7 +121,7 @@ class TextDifferencer {
         var longestCommonPassageText = longestCommonPassagePair.passages[0].text;
         var lengthOfCommonPassage = longestCommonPassageText.length;
   
-        if (lengthOfCommonPassage == 0)
+        if (lengthOfCommonPassage === 0)
         {
             return passagePairsMatching;    
         }
@@ -176,11 +176,11 @@ class TextDifferencer {
             (          
 				passagePairsMatching,
                 passagePairsToInsert,
-                (i == 0 ? 0 : passagePairsMatching.length)
+                (i === 0 ? 0 : passagePairsMatching.length)
             );
         }
   
-        for (var i = 0; i < longestCommonPassagePair.passages.length; i++)
+        for (i = 0; i < longestCommonPassagePair.passages.length; i++)
         {
             var passage = longestCommonPassagePair.passages[i];
             passage.position += positionOffsets[i];
@@ -220,7 +220,7 @@ class TextDifferencer {
   
             for (var j = 0; j < lengthOfString1; j++)
             {
-                if (string0[i] != string1[j])
+                if (string0[i] !== string1[j])
                 {
                     substringLengthsForRow[j] = 0;
                 }
@@ -228,7 +228,7 @@ class TextDifferencer {
                 {
                     var cellValue;
   
-                    if (i == 0 || j == 0)
+                    if (i === 0 || j === 0)
                     {
                         // first row or column
                         cellValue = 1;
@@ -322,8 +322,8 @@ class TextDifferencer {
   
         if 
         (
-            passagePairFinal.doPassagesMatch == true 
-            && passagePairFinal.passages[0].text.length == 0
+            passagePairFinal.doPassagesMatch === true 
+            && passagePairFinal.passages[0].text.length === 0
         )
         {
             removeAt(passagePairsAll, indexOfPassagePairFinal);
@@ -444,7 +444,7 @@ class TextPassagePair
 	public toString() {
         var returnValue = "";
   
-        if (this.doPassagesMatch == true)
+        if (this.doPassagesMatch === true)
         {
             returnValue = this.passages[0].text;
             returnValue = this.escapeStringForHTML(returnValue);
