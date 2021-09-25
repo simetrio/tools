@@ -3,6 +3,11 @@ export interface Route {
     name: string,
 }
 
+export const TextDifferencesRoute: Route = { 
+    url: "text-differences", 
+    name: "Differences Between Texts", 
+}
+
 export const TranslitFromRussianToEnglishRoute: Route = { 
     url: "translit-from-russian-to-english", 
     name: "Translit From Russian", 
@@ -44,6 +49,7 @@ export const Sha256GeneratorRoute: Route = {
 }
 
 export const AllRoutes: Route[] = [
+    TextDifferencesRoute,
     TranslitFromRussianToEnglishRoute,
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
