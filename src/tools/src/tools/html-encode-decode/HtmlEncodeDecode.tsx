@@ -31,7 +31,7 @@ export const HtmlEncodeDecode: React.FC = () => {
                     <MDBInput 
                         label="Decoded Html" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.decoded}
                         onChange={onEncode} 
                     />
@@ -41,7 +41,7 @@ export const HtmlEncodeDecode: React.FC = () => {
                     <MDBInput 
                         label="Encoded Html" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.encoded} 
                         onChange={onDecode} 
                     />

@@ -26,7 +26,7 @@ export const TranslitFromRussianToEnglish: React.FC = () => {
                     <MDBInput 
                         label="Russian text" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.decoded}
                         onChange={onEncode} 
                     />
@@ -36,7 +36,7 @@ export const TranslitFromRussianToEnglish: React.FC = () => {
                     <MDBInput 
                         label="Translit to English text" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.encoded} 
                         readonly={true}
                     />

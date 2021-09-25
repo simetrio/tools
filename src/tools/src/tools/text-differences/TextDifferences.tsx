@@ -33,7 +33,7 @@ export const TextDifferences: React.FC = () => {
                     <MDBInput 
                         label="Text Before" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.before}
                         onChange={onChangeBefore} 
                     />
@@ -43,7 +43,7 @@ export const TextDifferences: React.FC = () => {
                     <MDBInput 
                         label="Text After" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.after}
                         onChange={onChangeAfter}
                     />

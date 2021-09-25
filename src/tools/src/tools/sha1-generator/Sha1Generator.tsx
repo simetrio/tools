@@ -26,7 +26,7 @@ export const Sha1Generator: React.FC = () => {
                     <MDBInput 
                         label="Text" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.decoded}
                         onChange={onEncode} 
                     />
@@ -36,7 +36,7 @@ export const Sha1Generator: React.FC = () => {
                     <MDBInput 
                         label="SHA1" 
                         textarea 
-                        rows={20} 
+                        rows={15} 
                         value={formValue.encoded} 
                         readonly={true}
                     />
