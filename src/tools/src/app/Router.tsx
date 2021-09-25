@@ -4,6 +4,7 @@ import {
     Base64EncodeDecodeRoute, 
     GuidGeneratorRoute, 
     HtmlEncodeDecodeRoute, 
+    Sha1GeneratorRoute, 
     Sha256GeneratorRoute, 
     TranslitFromRussianToEnglishRoute, 
     UrlEncodeDecodeRoute 
@@ -14,6 +15,7 @@ import { UrlEncodeDecode } from "../tools/url-encode-decode/UrlEncodeDecode";
 import { HtmlEncodeDecode } from "../tools/html-encode-decode/HtmlEncodeDecode";
 import { Base64EncodeDecode } from "../tools/base64-encode-decode/Base64EncodeDecode";
 import { Sha256Generator } from "../tools/sha256-generator/Sha256Generator";
+import { Sha1Generator } from "../tools/sha1-generator/Sha1Generator";
 
 export const Router: React.FC = () => {
     return (
@@ -33,6 +35,7 @@ const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
             <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Route path={`${props.match.url}/${HtmlEncodeDecodeRoute.url}`} component={HtmlEncodeDecode} />
             <Route path={`${props.match.url}/${Base64EncodeDecodeRoute.url}`} component={Base64EncodeDecode} />
+            <Route path={`${props.match.url}/${Sha1GeneratorRoute.url}`} component={Sha1Generator} />
             <Route path={`${props.match.url}/${Sha256GeneratorRoute.url}`} component={Sha256Generator} />
             <Redirect to="/" />
         </Switch>
