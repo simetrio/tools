@@ -28,6 +28,11 @@ export const Base64EncodeDecodeRoute: Route = {
     name: "Base64 Encode/Decode", 
 }
 
+export const Md5GeneratorRoute: Route = { 
+    url: "md5-generator", 
+    name: "MD5 Generator", 
+}
+
 export const Sha1GeneratorRoute: Route = { 
     url: "sha1-generator", 
     name: "SHA1 Generator", 
@@ -44,6 +49,7 @@ export const AllRoutes: Route[] = [
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
     Base64EncodeDecodeRoute,
+    Md5GeneratorRoute,
     Sha1GeneratorRoute,
     Sha256GeneratorRoute,
 ]
