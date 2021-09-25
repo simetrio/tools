@@ -29,7 +29,7 @@ export const TextDifferences: React.FC = () => {
         <>
             <h1>Online Finding Differences Between Texts</h1>
             <MDBRow>
-                <MDBCol md="4" className="mb-3">
+                <MDBCol md="6" className="mb-3">
                     <MDBInput 
                         label="Text Before" 
                         textarea 
@@ -39,7 +39,7 @@ export const TextDifferences: React.FC = () => {
                     />
                 </MDBCol>
 
-                <MDBCol md="4" className="mb-3">
+                <MDBCol md="6" className="mb-3">
                     <MDBInput 
                         label="Text After" 
                         textarea 
@@ -48,9 +48,13 @@ export const TextDifferences: React.FC = () => {
                         onChange={onChangeAfter}
                     />
                 </MDBCol>
-
-                <MDBCol md="4" className="mb-3">
-                    <div dangerouslySetInnerHTML={{ __html: formValue.differences }} />
+            </MDBRow>
+            <h3>Differences</h3>
+            <MDBRow>
+                <MDBCol md="12" className="mb-3">
+                    <div className="square border rounded px-2 py-1" style={{minHeight: 380}}>
+                        <div dangerouslySetInnerHTML={{ __html: formValue.differences.replace("\n", "<br />") }} />
+                    </div>
                 </MDBCol>
             </MDBRow>
         </>

@@ -451,12 +451,11 @@ class TextPassagePair
         }
         else
         {
-            returnValue += "<mark class='background-color:red'>";
-            returnValue += this.escapeStringForHTML(this.passages[0].text);
-            returnValue += "</mark><mark style='background-color:yellow'>";
-            returnValue += this.escapeStringForHTML(this.passages[1].text);
-            returnValue += "</mark>"; 
-  
+			returnValue += "<mark class='bg-danger px-0'>";
+			returnValue += this.escapeStringForHTML(this.passages[0].text);
+			returnValue += "</mark><mark class='bg-success px-0'>";
+			returnValue += this.escapeStringForHTML(this.passages[1].text);
+			returnValue += "</mark>"; 
         }
   
         return returnValue;
