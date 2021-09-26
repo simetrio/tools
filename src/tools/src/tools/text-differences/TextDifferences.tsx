@@ -25,6 +25,8 @@ export const TextDifferences: React.FC = () => {
         setFormValue({ ...formValue, after: value, differences: TextDifferencesUtils.findDifferences(formValue.before, value) });
     }
 
+    const formatHtml = (value: string) => value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
+
     return (
         <>
             <h1>Online Finding Differences Between Texts</h1>
@@ -52,8 +54,8 @@ export const TextDifferences: React.FC = () => {
             <h3>Differences</h3>
             <MDBRow>
                 <MDBCol md="12" className="mb-3">
-                    <div className="square border rounded px-2 py-1" style={{minHeight: 380}}>
-                        <div dangerouslySetInnerHTML={{ __html: formValue.differences.replace("\n", "<br />") }} />
+                    <div className="square border-gray rounded wordwrap px-2 py-1" style={{height: 385}}>
+                        <div dangerouslySetInnerHTML={{ __html: formatHtml(formValue.differences) }} />
                     </div>
                 </MDBCol>
             </MDBRow>
