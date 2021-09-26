@@ -13,10 +13,19 @@ export const JsonFormatter: React.FC = () => {
         encoded: '',
     });
 
+    const formatValue = (value: string | number): string => {
+        if (typeof value === "string") {
+            return `<span class=text-success>${value}</span>`;
+        }
+        return `<span class=text-danger>${value}</span>`;
+    };
+
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: JsonFormatterUtils.format(value) });
+        setFormValue({ ...formValue, decoded: value, encoded: JsonFormatterUtils.format(value, formatValue) });
     }
+
+    const formatHtml = (value: string) => value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
 
     return (
         <>
@@ -33,13 +42,9 @@ export const JsonFormatter: React.FC = () => {
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput 
-                        label="Formatted Json" 
-                        textarea 
-                        rows={15} 
-                        value={formValue.encoded} 
-                        readonly={true}
-                    />
+                    <div className="square border-gray rounded wordwrap px-2 py-1" style={{height: 385}}>
+                        <div dangerouslySetInnerHTML={{ __html: formatHtml(formValue.encoded) }} />
+                    </div>
                 </MDBCol>
             </MDBRow>
         </>
