@@ -3,6 +3,11 @@ export interface Route {
     name: string,
 }
 
+export const JsonFormatterRoute: Route = { 
+    url: "json-formatter", 
+    name: "Json Formatter", 
+}
+
 export const TextDifferencesRoute: Route = { 
     url: "text-differences", 
     name: "Differences Between Texts", 
@@ -49,6 +54,7 @@ export const Sha256GeneratorRoute: Route = {
 }
 
 export const AllRoutes: Route[] = [
+    JsonFormatterRoute,
     TextDifferencesRoute,
     TranslitFromRussianToEnglishRoute,
     GuidGeneratorRoute,

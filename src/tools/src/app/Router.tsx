@@ -4,6 +4,7 @@ import {
     Base64EncodeDecodeRoute, 
     GuidGeneratorRoute, 
     HtmlEncodeDecodeRoute, 
+    JsonFormatterRoute, 
     Md5GeneratorRoute, 
     Sha1GeneratorRoute, 
     Sha256GeneratorRoute, 
@@ -20,6 +21,7 @@ import { Sha256Generator } from "../tools/sha256-generator/Sha256Generator";
 import { Sha1Generator } from "../tools/sha1-generator/Sha1Generator";
 import { Md5Generator } from "../tools/md5-generator/Md5Generator";
 import { TextDifferences } from "../tools/text-differences/TextDifferences";
+import { JsonFormatter } from "../tools/json-formatter/JsonFormatter";
 
 export const Router: React.FC = () => {
     return (
@@ -34,6 +36,7 @@ export const Router: React.FC = () => {
 const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
     return (
         <Switch>
+            <Route path={`${props.match.url}/${JsonFormatterRoute.url}`} component={JsonFormatter} />
             <Route path={`${props.match.url}/${TextDifferencesRoute.url}`} component={TextDifferences} />
             <Route path={`${props.match.url}/${TranslitFromRussianToEnglishRoute.url}`} component={TranslitFromRussianToEnglish} />
             <Route path={`${props.match.url}/${GuidGeneratorRoute.url}`} component={GuidGenerator} />
