@@ -3,6 +3,9 @@ export const TextDifferencesUtils = {
 		if(!before || !after) {
 			return "";
 		}
+        if(before === after) {
+            return before;
+        }
 		return new TextDifferencer().findDifferencesBetweenStrings(before, after).toString();
 	},
 }
