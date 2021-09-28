@@ -1,9 +1,9 @@
 export const TextDifferencesUtils = {
-    findDifferences: (textBefore: string, textAfter: string): string => {
-		if(!textBefore || !textAfter) {
+    findDifferences: (before: string, after: string): string => {
+		if(!before || !after) {
 			return "";
 		}
-		return new TextDifferencer().findDifferencesBetweenStrings(textBefore, textAfter).toString();
+		return new TextDifferencer().findDifferencesBetweenStrings(before, after).toString();
 	},
 }
 

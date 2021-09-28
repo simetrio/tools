@@ -15,14 +15,33 @@ export const TextDifferences: React.FC = () => {
         differences: '',
     });
 
+    const executeAsync = (action: () => void): void => {
+        window.setTimeout(action, 1);
+    }
+
+    const findDifferences = (before: string, after: string): void => {
+        setFormValue({ 
+            ...formValue, 
+            before,
+            after,
+            differences: "loading..." 
+        });
+        executeAsync(() => {
+            setFormValue({ 
+                ...formValue, 
+                before,
+                after,
+                differences: TextDifferencesUtils.findDifferences(before, after) 
+            })
+        });
+    }
+
     const onChangeBefore = (e: any) => {
-        const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, before: value, differences: TextDifferencesUtils.findDifferences(value, formValue.after) });
+        findDifferences(e.currentTarget.value || "", formValue.after);
     }
 
     const onChangeAfter = (e: any) => {
-        const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, after: value, differences: TextDifferencesUtils.findDifferences(formValue.before, value) });
+        findDifferences(formValue.before, e.currentTarget.value || "");
     }
 
     const formatHtml = (value: string) => value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
