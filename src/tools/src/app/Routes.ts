@@ -3,6 +3,11 @@ export interface Route {
     name: string,
 }
 
+export const JsonViewerRoute: Route = { 
+    url: "json-viewer", 
+    name: "Json Viewer", 
+}
+
 export const JsonFormatterRoute: Route = { 
     url: "json-formatter", 
     name: "Json Formatter", 
@@ -54,6 +59,7 @@ export const Sha256GeneratorRoute: Route = {
 }
 
 export const AllRoutes: Route[] = [
+    JsonViewerRoute,
     JsonFormatterRoute,
     TextDifferencesRoute,
     TranslitFromRussianToEnglishRoute,
