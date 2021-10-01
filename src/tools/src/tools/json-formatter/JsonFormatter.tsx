@@ -13,11 +13,15 @@ export const JsonFormatter: React.FC = () => {
         encoded: '',
     });
 
-    const formatValueHtml = (value: string | number | boolean, className: string): string => {
+    const formatValueHtml = (value: string | number | boolean, className: "text-danger" | "text-success"): string => {
         return `<span class=${className}>${value}</span>`;
     };
 
-    const formatValue = (value: string | number | boolean): string => {
+    const formatValue = (value: string | number | boolean | null): string => {
+        if (value === null) {
+            return formatValueHtml("null", "text-danger");
+        }
+
         const type = typeof value === "number" || typeof value === "boolean"
             ? "text-danger" 
             : "text-success";
