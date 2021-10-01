@@ -21,7 +21,7 @@ export const JsonViewer: React.FC = () => {
     console.log(formValue.jsonObject);
     return (
         <>
-            <h1>Online Json Formatter</h1>
+            <h1>Online Json Viewer</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput 
