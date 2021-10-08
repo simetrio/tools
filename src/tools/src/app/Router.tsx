@@ -11,6 +11,7 @@ import {
     Sha256GeneratorRoute, 
     TextDifferencesRoute, 
     TranslitFromRussianToEnglishRoute, 
+    UnitConverterRoute, 
     UrlEncodeDecodeRoute 
 } from "./Routes";
 import { TranslitFromRussianToEnglish } from "../tools/translit-from-russian-to-english/TranslitFromRussianToEnglish";
@@ -24,6 +25,7 @@ import { Md5Generator } from "../tools/md5-generator/Md5Generator";
 import { TextDifferences } from "../tools/text-differences/TextDifferences";
 import { JsonFormatter } from "../tools/json-formatter/JsonFormatter";
 import { JsonViewer } from "../tools/json-viewer/JsonViewer";
+import { UnitConverter } from "../tools/unit-converter/UnitConverter";
 
 export const Router: React.FC = () => {
     return (
@@ -42,6 +44,7 @@ const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
             <Route path={`${props.match.url}/${JsonFormatterRoute.url}`} component={JsonFormatter} />
             <Route path={`${props.match.url}/${TextDifferencesRoute.url}`} component={TextDifferences} />
             <Route path={`${props.match.url}/${TranslitFromRussianToEnglishRoute.url}`} component={TranslitFromRussianToEnglish} />
+            <Route path={`${props.match.url}/${UnitConverterRoute.url}`} component={UnitConverter} />
             <Route path={`${props.match.url}/${GuidGeneratorRoute.url}`} component={GuidGenerator} />
             <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Route path={`${props.match.url}/${HtmlEncodeDecodeRoute.url}`} component={HtmlEncodeDecode} />

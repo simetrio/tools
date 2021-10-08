@@ -23,6 +23,11 @@ export const TranslitFromRussianToEnglishRoute: Route = {
     name: "Translit From Russian", 
 }
 
+export const UnitConverterRoute: Route = { 
+    url: "unit-converter", 
+    name: "Unit Converter", 
+}
+
 export const GuidGeneratorRoute: Route = { 
     url: "guid-generator", 
     name: "Guid Generator", 
@@ -63,6 +68,7 @@ export const AllRoutes: Route[] = [
     JsonFormatterRoute,
     TextDifferencesRoute,
     TranslitFromRussianToEnglishRoute,
+    UnitConverterRoute,
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
