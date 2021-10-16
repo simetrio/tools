@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu>
                                         {AllRoutes.map(x => (
-                                            <MDBDropdownItem>
+                                            <MDBDropdownItem key={x.url}>
                                                 <MDBDropdownLink href={`/tools/${x.url}/`}>{x.name}</MDBDropdownLink>
                                             </MDBDropdownItem>
                                         ))}
