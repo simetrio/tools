@@ -11,7 +11,8 @@ namespace PublishTools
             var type = typeof(ToolsFinder)
                 .Assembly
                 .GetTypes()
-                .Single(x => x.Name == name);
+                .SingleOrDefault(x => x.Name == name) 
+                       ?? throw new ArgumentOutOfRangeException(nameof(name), $"Tools with name '{name}' not found");
             return Activator.CreateInstance(type) as ITools;
         }
     }
