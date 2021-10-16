@@ -1,4 +1,4 @@
-import { MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow } from "mdb-react-ui-kit";
+import { MDBBtn, MDBBtnGroup, MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { LoanCalculatorUtils, Result } from "./LoanCalculatorUtils";
 
@@ -63,6 +63,10 @@ const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalcul
     return (
         <>
             <MDBCol md="12" className="mb-3">
+                <LoanCalculatorFromCurrency name="currency" value={props.currency} onChange={props.onChange} />
+            </MDBCol>
+
+            <MDBCol md="12" className="mb-3">
                 <label htmlFor="amount" className="form-label">
                     Loan amount
                 </label>
@@ -79,7 +83,7 @@ const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalcul
             </MDBCol>
 
             <MDBCol md="12" className="mb-3">
-                <LoanCalculatorFromTerm name="term" term={props.term} onChange={props.onChange} />
+                <LoanCalculatorFromTerm name="term" value={props.term} onChange={props.onChange} />
             </MDBCol>
 
             <MDBCol md="12" className="mb-3">
@@ -103,7 +107,7 @@ const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalcul
 
 interface LoanCalculatorFromTermProps {
     name: string,
-    term: number,
+    value: number,
     onChange: (e: any) => void,
 }
 
@@ -114,7 +118,7 @@ interface LoanCalculatorFromTermValue {
 
 const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: LoanCalculatorFromTermProps) => {
     const [formValue, setFormValue] = useState<LoanCalculatorFromTermValue>({
-        term: props.term,
+        term: props.value,
         termPeriod: "years",
     });
 
@@ -130,13 +134,6 @@ const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: Lo
         const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
         setFormValue({ ...newFormValue });
         calculateAndSendChange(newFormValue.term, newFormValue.termPeriod)
-    }
-    
-    const onChangePeriod = (name: string, value: string) => {
-        onChange({
-            target: {name},
-            currentTarget: {value},
-        });
     }
 
     return (
@@ -156,7 +153,7 @@ const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: Lo
                     name="termPeriod"
                     values={["years", "months"]}
                     className="group-drop-down-right"
-                    onChange={onChangePeriod}
+                    onChange={onChange}
                 />
             </MDBInputGroup>
         </>
@@ -171,7 +168,7 @@ interface LoanCalculatorFromDropDownParams {
     name: string,
     values: string[],
     className?: string,
-    onChange: (name: string, value: string) => void,
+    onChange: (e: any) => void,
 }
 
 const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (props: LoanCalculatorFromDropDownParams) => {
@@ -181,7 +178,10 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
 
     const onChange = (value: string) => {
         setFormValue({ ...formValue, value });
-        props.onChange(props.name, value);
+        props.onChange({
+            target: {name: props.name},
+            currentTarget: {value},
+        });
     }
 
     return (
@@ -206,5 +206,34 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
                 ))}
             </MDBDropdownMenu>
         </MDBDropdown>
+    )
+}
+
+interface LoanCalculatorFromCurrencyParams {
+    name: string,
+    value: string,
+    onChange: (e: any) => void,
+}
+
+const currencies: string[] = ["$", "€", "£", "¥", "₽", "₣", "元", "₹"];
+
+const LoanCalculatorFromCurrency: React.FC<LoanCalculatorFromCurrencyParams> = (props: LoanCalculatorFromCurrencyParams) => {
+    const onChange = (value: string) => {
+        props.onChange({
+            target: {name: props.name},
+            currentTarget: {value},
+        });
+    }
+
+    return (
+        <>
+            <label htmlFor="term" className="form-label">
+                Currency
+            </label>
+            <br />
+            <MDBBtnGroup name={props.name}>
+                {currencies.map(x => <MDBBtn onClick={() => onChange(x)}>{x}</MDBBtn>)}
+            </MDBBtnGroup>
+        </>
     )
 }
