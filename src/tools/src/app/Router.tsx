@@ -6,6 +6,7 @@ import {
     HtmlEncodeDecodeRoute, 
     JsonFormatterRoute, 
     JsonViewerRoute, 
+    LoanCalculatorRoute, 
     Md5GeneratorRoute, 
     Sha1GeneratorRoute, 
     Sha256GeneratorRoute, 
@@ -26,6 +27,7 @@ import { TextDifferences } from "../tools/text-differences/TextDifferences";
 import { JsonFormatter } from "../tools/json-formatter/JsonFormatter";
 import { JsonViewer } from "../tools/json-viewer/JsonViewer";
 import { UnitConverter } from "../tools/unit-converter/UnitConverter";
+import { LoanCalculator } from "../tools/loan-calculator/LoanCalculator";
 
 export const Router: React.FC = () => {
     return (
@@ -45,6 +47,7 @@ const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
             <Route path={`${props.match.url}/${TextDifferencesRoute.url}`} component={TextDifferences} />
             <Route path={`${props.match.url}/${TranslitFromRussianToEnglishRoute.url}`} component={TranslitFromRussianToEnglish} />
             <Route path={`${props.match.url}/${UnitConverterRoute.url}`} component={UnitConverter} />
+            <Route path={`${props.match.url}/${LoanCalculatorRoute.url}`} component={LoanCalculator} />
             <Route path={`${props.match.url}/${GuidGeneratorRoute.url}`} component={GuidGenerator} />
             <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Route path={`${props.match.url}/${HtmlEncodeDecodeRoute.url}`} component={HtmlEncodeDecode} />

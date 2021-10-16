@@ -28,6 +28,11 @@ export const UnitConverterRoute: Route = {
     name: "Unit Converter", 
 }
 
+export const LoanCalculatorRoute: Route = { 
+    url: "loan-calculator", 
+    name: "Loan Calculator", 
+}
+
 export const GuidGeneratorRoute: Route = { 
     url: "guid-generator", 
     name: "Guid Generator", 
@@ -69,6 +74,7 @@ export const AllRoutes: Route[] = [
     TextDifferencesRoute,
     TranslitFromRussianToEnglishRoute,
     UnitConverterRoute,
+    LoanCalculatorRoute,
     GuidGeneratorRoute,
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
