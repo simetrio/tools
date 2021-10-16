@@ -8,7 +8,7 @@ namespace PublishTools.Tools
         public void Execute(CommandLine commandLine)
         {
             var dirName = commandLine.Get("--name");
-            Console.WriteLine($"Delete directory {dirName}");
+            Console.WriteLine($"Delete directory '{dirName}'");
             
             if (Directory.Exists(dirName))
             {
