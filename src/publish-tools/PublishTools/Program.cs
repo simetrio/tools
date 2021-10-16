@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace PublishTools
+﻿namespace PublishTools
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var commandLine = CommandLine.Parse(args);
+            var tools = ToolsFinder.Find(commandLine);
+            tools.Execute(commandLine);
         }
     }
 }
