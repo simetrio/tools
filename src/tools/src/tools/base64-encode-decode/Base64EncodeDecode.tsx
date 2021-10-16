@@ -25,7 +25,7 @@ export const Base64EncodeDecode: React.FC = () => {
 
     return (
         <>
-            <h1>Online Base64 Encode/Decode</h1>
+            <h1>Online Base64 Encode/Decode Text</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput 

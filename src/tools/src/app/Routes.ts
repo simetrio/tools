@@ -50,7 +50,7 @@ export const HtmlEncodeDecodeRoute: Route = {
 
 export const Base64EncodeDecodeRoute: Route = { 
     url: "base64-encode-decode", 
-    name: "Base64 Encode/Decode", 
+    name: "Base64 Encode/Decode Text", 
 }
 
 export const Md5GeneratorRoute: Route = { 
