@@ -5,14 +5,8 @@ interface Props {
 }
 
 export interface Result {
+    amount: number,
     monthlyPayment: number,
-    totalInterestPaid: number,
-    years: ResultYear[],
-    total: ResultRow,
-}
-
-export interface ResultYear {
-    year: number,
     months: ResultRow[],
     total: ResultRow,
 }
@@ -22,7 +16,6 @@ export interface ResultRow {
     payment: number,
     principal: number,
     interest: number,
-    totalInterest	: number,
     balance: number,
 }
 
@@ -31,21 +24,52 @@ export const LoanCalculatorUtils = {
 }
 
 function calculate(props: Props): Result | null {
-    console.log(props);
     if (!props.amount || !props.term || !props.rate) {
         return null;
     }
 
-    const monthlyPayment = calculateMonthlyPayment(props);
+    const monthlyRate = props.rate / 12 / 100;
+    const monthlyPayment = props.amount * (monthlyRate + monthlyRate / (Math.pow(1 + monthlyRate, props.term) - 1));
+    const months = calculateMonths(monthlyRate, props.amount, props.term, monthlyPayment);
+    const total = calculateTotal(months);
+    
     return {
+        amount: props.amount,
         monthlyPayment,
-        totalInterestPaid: 0,
-        years: [],
-        total: {} as any
+        months,
+        total
     }
 }
 
-function calculateMonthlyPayment(props: Props): number {
-    const monthlyRate = props.rate / 12 / 100;
-    return props.amount * (monthlyRate + monthlyRate / (Math.pow(1 + monthlyRate, props.term) - 1))
+function calculateMonths(monthlyRate: number, amount: number, term: number, monthlyPayment: number): ResultRow[] {
+    const month: ResultRow[] = [];
+    let balance = amount;
+
+    for (let i = 1; i <= term; i++) {
+        const now = new Date();
+        const date = new Date(now.setMonth(now.getMonth() + i));
+        const interest = balance * monthlyRate;
+        const principal = balance > monthlyPayment - interest ? monthlyPayment - interest : balance;
+        const payment = principal + interest;
+        balance -= principal;
+
+        month.push({
+            date,
+            payment,
+            principal,
+            interest,
+            balance,
+        })
+    }
+
+    return month;
+}
+
+function calculateTotal(months: ResultRow[]): ResultRow {
+    return months.reduce((current, next) => ({
+        ...current,
+        payment: current.payment + next.payment,
+        principal: current.principal + next.principal,
+        interest: current.interest + next.interest,
+    }));
 }

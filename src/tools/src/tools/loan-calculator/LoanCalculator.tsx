@@ -1,9 +1,8 @@
-import { MDBBtn, MDBBtnGroup, MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow } from "mdb-react-ui-kit";
+import { MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow, MDBSpinner, MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { LoanCalculatorUtils, Result } from "./LoanCalculatorUtils";
 
 interface FormValue {
-    currency: string,
     amount: number,
     term: number,
     rate: number,
@@ -12,25 +11,28 @@ interface FormValue {
 
 export const LoanCalculator: React.FC = () => {
     const [formValue, setFormValue] = useState<FormValue>({
-        currency: "$",
         amount: 5000,
-        term: 10,
+        term: 60,
         rate: 4.5,
         result: null,
     });
 
+    // eslint-disable-next-line
     useEffect(() => calculate(formValue), []);
+
+    const executeAsync = (action: () => void) => {
+        window.setTimeout(action, 10);
+    }
 
     const calculate = (formValue: FormValue) => {
         const result = LoanCalculatorUtils.calculate({...formValue});
-        console.log(result);
         setFormValue({ ...formValue, result });
     };
 
-    const onChange = (e: any) => {
-        const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
+    const onChange = (name: string, value: any) => {
+        const newFormValue = { ...formValue, [name]: value };
         setFormValue({ ...newFormValue });
-        calculate(newFormValue);
+        executeAsync(() => calculate(newFormValue));
     };
 
     return (
@@ -39,44 +41,47 @@ export const LoanCalculator: React.FC = () => {
             <MDBRow>
                 <MDBCol md="6">
                     <LoanCalculatorFrom
-                        currency={formValue.currency}
                         amount={formValue.amount}
                         term={formValue.term}
                         rate={formValue.rate}
                         onChange={onChange}
                     />
                 </MDBCol>
+                {formValue.result && (
+                    <MDBCol md="6">
+                        <LoanCalculatorSummary result={formValue.result} />
+                    </MDBCol>
+                )}
             </MDBRow>
+            {formValue.result && (
+                <MDBRow>
+                    <MDBCol md="12">
+                        <LoanCalculatorTable result={formValue.result} />
+                    </MDBCol>
+                </MDBRow>
+            )}
         </>
     )
 }
 
 interface LoanCalculatorFromProps {
-    currency: string,
     amount: number,
     term: number,
     rate: number,
-    onChange: (e: any) => void,
+    onChange: (name: string, value: number) => void,
 }
 
 const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalculatorFromProps) => {
     return (
         <>
             <MDBCol md="12" className="mb-3">
-                <LoanCalculatorFromCurrency name="currency" value={props.currency} onChange={props.onChange} />
-            </MDBCol>
-
-            <MDBCol md="12" className="mb-3">
                 <label htmlFor="amount" className="form-label">
                     Loan amount
                 </label>
                 <MDBInputGroup>
-                    <MDBInputGroupText>{props.currency}</MDBInputGroupText>
-                    <MDBInputGroupElement 
-                        type="text"
-                        value={props.amount.toString()}
+                    <NumberEdit
+                        value={props.amount}
                         name="amount"
-                        id="amount"
                         onChange={props.onChange}
                     />
                 </MDBInputGroup>
@@ -91,11 +96,9 @@ const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalcul
                     Interest rate per year
                 </label>
                 <MDBInputGroup>
-                    <MDBInputGroupElement 
-                        type="text"
-                        value={props.rate.toString()}
+                    <NumberEdit 
+                        value={props.rate}
                         name="rate"
-                        id="rate"
                         onChange={props.onChange}
                     />
                     <MDBInputGroupText>%</MDBInputGroupText>
@@ -108,7 +111,7 @@ const LoanCalculatorFrom: React.FC<LoanCalculatorFromProps> = (props: LoanCalcul
 interface LoanCalculatorFromTermProps {
     name: string,
     value: number,
-    onChange: (e: any) => void,
+    onChange: (name: string, value: number) => void,
 }
 
 interface LoanCalculatorFromTermValue {
@@ -118,20 +121,17 @@ interface LoanCalculatorFromTermValue {
 
 const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: LoanCalculatorFromTermProps) => {
     const [formValue, setFormValue] = useState<LoanCalculatorFromTermValue>({
-        term: props.value,
+        term: props.value / 12,
         termPeriod: "years",
     });
 
     const calculateAndSendChange = (term: number, termPeriod: string) => {
         const value = termPeriod === "years" ? term * 12 : term;
-        props.onChange({
-            target: {name: props.name},
-            currentTarget: {value},
-        });
+        props.onChange(props.name, value);
     }
     
-    const onChange = (e: any) => {
-        const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
+    const onChange = (name: string, value: any) => {
+        const newFormValue = { ...formValue, [name]: value };
         setFormValue({ ...newFormValue });
         calculateAndSendChange(newFormValue.term, newFormValue.termPeriod)
     }
@@ -142,11 +142,9 @@ const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: Lo
                 Loan term
             </label>
             <MDBInputGroup>
-                <MDBInputGroupElement 
-                    type="text"
-                    value={formValue.term.toString()}
+                <NumberEdit
+                    value={formValue.term}
                     name="term"
-                    id="term"
                     onChange={onChange}
                 />
                 <LoanCalculatorFromDropDown 
@@ -168,7 +166,7 @@ interface LoanCalculatorFromDropDownParams {
     name: string,
     values: string[],
     className?: string,
-    onChange: (e: any) => void,
+    onChange: (name: string, value: any) => void,
 }
 
 const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (props: LoanCalculatorFromDropDownParams) => {
@@ -178,10 +176,7 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
 
     const onChange = (value: string) => {
         setFormValue({ ...formValue, value });
-        props.onChange({
-            target: {name: props.name},
-            currentTarget: {value},
-        });
+        props.onChange(props.name, value);
     }
 
     return (
@@ -192,7 +187,7 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
                     <MDBDropdownLink tag="button" type="button" className="bg-light p-0 m-0"></MDBDropdownLink>
                 </MDBDropdownItem>
                 {props.values.map(x => (
-                    <MDBDropdownItem>
+                    <MDBDropdownItem key={x}>
                         <MDBDropdownLink 
                             tag="button" 
                             type="button" 
@@ -209,31 +204,129 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
     )
 }
 
-interface LoanCalculatorFromCurrencyParams {
-    name: string,
-    value: string,
-    onChange: (e: any) => void,
+interface LoanCalculatorTableParams {
+    result: Result,
 }
 
-const currencies: string[] = ["$", "€", "£", "¥", "₽", "₣", "元", "₹"];
-
-const LoanCalculatorFromCurrency: React.FC<LoanCalculatorFromCurrencyParams> = (props: LoanCalculatorFromCurrencyParams) => {
-    const onChange = (value: string) => {
-        props.onChange({
-            target: {name: props.name},
-            currentTarget: {value},
-        });
-    }
-
+const LoanCalculatorTable: React.FC<LoanCalculatorTableParams> = (props: LoanCalculatorTableParams) => {
+    const maxCount = 100;
     return (
-        <>
-            <label htmlFor="term" className="form-label">
-                Currency
-            </label>
-            <br />
-            <MDBBtnGroup name={props.name}>
-                {currencies.map(x => <MDBBtn onClick={() => onChange(x)}>{x}</MDBBtn>)}
-            </MDBBtnGroup>
-        </>
+        <MDBTable small hover>
+            <MDBTableHead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Principal</th>
+                    <th scope="col">Interest</th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+                <tr>
+                    <td><DateView value={new Date()} /></td>
+                    <td>&ndash;</td>
+                    <td>&ndash;</td>
+                    <td>&ndash;</td>
+                    <td><NumberView value={props.result.amount} /></td>
+                </tr>
+                {props.result.months.slice(0, maxCount).map(x => (
+                    <tr key={x.date.toString()}>
+                        <td><DateView value={x.date} /></td>
+                        <td><NumberView value={x.payment} /></td>
+                        <td><NumberView value={x.principal} /></td>
+                        <td><NumberView value={x.interest} /></td>
+                        <td><NumberView value={x.balance} /></td>
+                    </tr>
+                ))}
+                <tr className="table-success">
+                    <td></td>
+                    <th><NumberView value={props.result.total.payment} /></th>
+                    <th><NumberView value={props.result.total.principal} /></th>
+                    <th><NumberView value={props.result.total.interest} /></th>
+                    <td></td>
+                </tr>
+            </MDBTableBody>
+        </MDBTable>
     )
+}
+
+interface LoanCalculatorSummaryParams {
+    result: Result,
+}
+
+const LoanCalculatorSummary: React.FC<LoanCalculatorSummaryParams> = (props: LoanCalculatorSummaryParams) => {
+    return (
+        <MDBTable small>
+            <MDBTableBody>
+                <tr>
+                    <td className="h6">Monthly Payments</td>
+                    <td className="h6"><NumberView value={props.result.monthlyPayment} /></td>
+                </tr>
+                <tr>
+                    <td className="h6">Total Principal Paid</td>
+                    <td className="h6"><NumberView value={props.result.total.principal} /></td>
+                </tr>
+                <tr>
+                    <td className="h6">Total Interest Paid</td>
+                    <td className="h6"><NumberView value={props.result.total.interest} /></td>
+                </tr>
+                <tr>
+                    <td className="h6">Total Payments</td>
+                    <td className="h6"><NumberView value={props.result.total.payment} /></td>
+                </tr>
+            </MDBTableBody>
+        </MDBTable>
+    )
+}
+
+interface ViewParams<T> {
+    value: T,
+}
+
+const NumberView: React.FC<ViewParams<number>> = (props: ViewParams<number>) => {
+    return <>{props.value.toFixed(2)}</>;
+}
+
+const DateView: React.FC<ViewParams<Date>> = (props: ViewParams<Date>) => {
+    const dateOptions: Intl.DateTimeFormatOptions = {
+        dateStyle: "long",
+    }
+    
+    const parts = new Intl.DateTimeFormat("en-us", dateOptions).formatToParts(props.value);
+    const month = parts.find(x => x.type === "month")?.value;
+    const year = parts.find(x => x.type === "year")?.value;
+
+    return <>{month} {year}</>;
+}
+
+interface EditParams<T> {
+    name: string,
+    value: T,
+    onChange: (name: string, value: T) => void,
+}
+
+interface EditValue {
+    value: string,
+}
+
+const NumberEdit: React.FC<EditParams<number>> = (props: EditParams<number>) => {
+    const [formValue, setFormValue] = useState<EditValue>({
+        value: props.value.toString(),
+    });
+
+    const onChange = (e: any) => {
+        const value = e.currentTarget.value as string;
+        setFormValue({ ...formValue, value });
+        props.onChange(props.name, parseFloat(value.replace(",", ".")))
+    };
+  
+    return (
+        <MDBInputGroupElement 
+            type="text"
+            value={formValue.value}
+            name={props.name}
+            id={props.name}
+            onChange={onChange}
+        />
+    );
 }
