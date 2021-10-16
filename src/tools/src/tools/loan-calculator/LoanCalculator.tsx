@@ -1,6 +1,6 @@
-import { MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow, MDBSpinner, MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
-import { LoanCalculatorUtils, Result } from "./LoanCalculatorUtils";
+import { MDBCol, MDBDropdown, MDBDropdownItem, MDBDropdownLink, MDBDropdownMenu, MDBDropdownToggle, MDBInputGroup, MDBInputGroupElement, MDBInputGroupText, MDBRow, MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { memo, useEffect, useState } from "react";
+import { LoanCalculatorUtils, Result, ResultRow } from "./LoanCalculatorUtils";
 
 interface FormValue {
     amount: number,
@@ -8,6 +8,8 @@ interface FormValue {
     rate: number,
     result: Result | null,
 }
+
+let timeout = 0;
 
 export const LoanCalculator: React.FC = () => {
     const [formValue, setFormValue] = useState<FormValue>({
@@ -21,7 +23,10 @@ export const LoanCalculator: React.FC = () => {
     useEffect(() => calculate(formValue), []);
 
     const executeAsync = (action: () => void) => {
-        window.setTimeout(action, 10);
+        if (timeout) {
+            window.clearTimeout(timeout);
+        }
+        timeout = window.setTimeout(action, 1000);
     }
 
     const calculate = (formValue: FormValue) => {
@@ -204,16 +209,40 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
     )
 }
 
+interface LoanCalculatorTableValue {
+    maxCount: number,
+}
+
 interface LoanCalculatorTableParams {
     result: Result,
 }
 
+const maxCountStep = 300;
+
 const LoanCalculatorTable: React.FC<LoanCalculatorTableParams> = (props: LoanCalculatorTableParams) => {
-    const maxCount = 100;
+    const [formValue, setFormValue] = useState<LoanCalculatorTableValue>({
+        maxCount: maxCountStep,
+    });
+    
+    useEffect(() => {
+        window.setTimeout(() => {
+        if (props.result.months.length > formValue.maxCount) {
+                setFormValue({ ...formValue, maxCount: formValue.maxCount + maxCountStep });
+            }
+        }, 1000);
+    // eslint-disable-next-line
+    }, [formValue])
+
+    useEffect(() => {
+        setFormValue({ ...formValue, maxCount: maxCountStep });
+    // eslint-disable-next-line
+    }, [props.result])
+
     return (
         <MDBTable small hover>
             <MDBTableHead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">Date</th>
                     <th scope="col">Payment</th>
                     <th scope="col">Principal</th>
@@ -223,32 +252,45 @@ const LoanCalculatorTable: React.FC<LoanCalculatorTableParams> = (props: LoanCal
             </MDBTableHead>
             <MDBTableBody>
                 <tr>
+                    <td></td>
                     <td><DateView value={new Date()} /></td>
                     <td>&ndash;</td>
                     <td>&ndash;</td>
                     <td>&ndash;</td>
                     <td><NumberView value={props.result.amount} /></td>
                 </tr>
-                {props.result.months.slice(0, maxCount).map(x => (
-                    <tr key={x.date.toString()}>
-                        <td><DateView value={x.date} /></td>
-                        <td><NumberView value={x.payment} /></td>
-                        <td><NumberView value={x.principal} /></td>
-                        <td><NumberView value={x.interest} /></td>
-                        <td><NumberView value={x.balance} /></td>
-                    </tr>
+                {props.result.months.slice(0, formValue.maxCount).map(x => (
+                    <LoanCalculatorTableRowMemo key={x.date.toString()} {...x} />
                 ))}
-                <tr className="table-success">
-                    <td></td>
-                    <th><NumberView value={props.result.total.payment} /></th>
-                    <th><NumberView value={props.result.total.principal} /></th>
-                    <th><NumberView value={props.result.total.interest} /></th>
-                    <td></td>
-                </tr>
+                {props.result.months.length <= formValue.maxCount && (
+                    <tr className="table-success">
+                        <td></td>
+                        <td></td>
+                        <th><NumberView value={props.result.total.payment} /></th>
+                        <th><NumberView value={props.result.total.principal} /></th>
+                        <th><NumberView value={props.result.total.interest} /></th>
+                        <td></td>
+                    </tr>
+                )}
             </MDBTableBody>
         </MDBTable>
     )
 }
+
+const LoanCalculatorTableRow: React.FC<ResultRow> = (x: ResultRow) => {
+    return (
+        <tr>
+            <th>{x.index}</th>
+            <td><DateView value={x.date} /></td>
+            <td><NumberView value={x.payment} /></td>
+            <td><NumberView value={x.principal} /></td>
+            <td><NumberView value={x.interest} /></td>
+            <td><NumberView value={x.balance} /></td>
+        </tr>
+    )
+}
+
+const LoanCalculatorTableRowMemo = memo(LoanCalculatorTableRow);
 
 interface LoanCalculatorSummaryParams {
     result: Result,
@@ -284,7 +326,11 @@ interface ViewParams<T> {
 }
 
 const NumberView: React.FC<ViewParams<number>> = (props: ViewParams<number>) => {
-    return <>{props.value.toFixed(2)}</>;
+    const options: Intl.NumberFormatOptions = {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }
+    return <>{new Intl.NumberFormat(undefined, options).format(props.value)}</>;
 }
 
 const DateView: React.FC<ViewParams<Date>> = (props: ViewParams<Date>) => {

@@ -6,12 +6,15 @@ interface Props {
 
 export interface Result {
     amount: number,
+    term: number,
+    rate: number,
     monthlyPayment: number,
     months: ResultRow[],
     total: ResultRow,
 }
 
 export interface ResultRow {
+    index: number,
     date: Date,
     payment: number,
     principal: number,
@@ -35,6 +38,8 @@ function calculate(props: Props): Result | null {
     
     return {
         amount: props.amount,
+        term: props.term,
+        rate: props.rate,
         monthlyPayment,
         months,
         total
@@ -54,6 +59,7 @@ function calculateMonths(monthlyRate: number, amount: number, term: number, mont
         balance -= principal;
 
         month.push({
+            index: i,
             date,
             payment,
             principal,
