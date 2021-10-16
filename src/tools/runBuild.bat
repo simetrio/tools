@@ -1,3 +1,4 @@
-npm run build
+/npm run build
 PublishTools.exe -mode DeleteDirectory --name "../../docs"
-pause
+PublishTools.exe -mode CopyDirectory --from "build" --to "../../docs"
+/pause
