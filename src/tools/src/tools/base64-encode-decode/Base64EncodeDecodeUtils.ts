@@ -6,7 +6,7 @@ export const Base64EncodeDecodeUtils = {
 
 const base64Keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
  
-function encodeBase64(value: string) {
+function encodeBase64(value: string): string {
   let output = "";
   let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
   let i = 0;
@@ -31,9 +31,8 @@ function encodeBase64(value: string) {
     }
 
     output = output +
-    base64Keys.charAt(enc1) + base64Keys.charAt(enc2) +
-    base64Keys.charAt(enc3) + base64Keys.charAt(enc4);
-
+      base64Keys.charAt(enc1) + base64Keys.charAt(enc2) +
+      base64Keys.charAt(enc3) + base64Keys.charAt(enc4);
   }
 
   return output;
