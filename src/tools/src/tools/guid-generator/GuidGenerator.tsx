@@ -1,5 +1,5 @@
 import { MDBBtn, MDBCheckbox, MDBCol, MDBInput } from "mdb-react-ui-kit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GuidGeneratorUtils } from "./GuidGeneratorUtils";
 
 interface FormValue {
@@ -19,17 +19,27 @@ export const GuidGenerator: React.FC = () => {
         value: [],
     });
 
+    const generate = (props: FormValue) => {
+        setFormValue({ ...props, value: GuidGeneratorUtils.generate(props) });
+    }
+
     const onChange = (e: any) => {
-        setFormValue({ ...formValue, [e.target.name]: e.currentTarget.value });
+        const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
+        setFormValue(newFormValue);
+        generate(newFormValue);
     };
 
     const onChangeBoolean = (e: any) => {
-        setFormValue({ ...formValue, [e.target.name]: e.currentTarget.checked });
+        const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.checked };
+        setFormValue(newFormValue);
+        generate(newFormValue);
     };
 
     const onGenerate = () => {
-        setFormValue({ ...formValue, value: GuidGeneratorUtils.generate(formValue) });
+        generate(formValue);
     }
+
+    useEffect(() => generate(formValue), []);
 
     return (
         <>
