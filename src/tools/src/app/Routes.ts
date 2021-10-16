@@ -53,6 +53,11 @@ export const Base64EncodeDecodeRoute: Route = {
     name: "Base64 Encode/Decode Text", 
 }
 
+export const Base64EncodeFileOrImageRoute: Route = { 
+    url: "base64-encode-file-or-image", 
+    name: "Base64 Encode File Or Image", 
+}
+
 export const Md5GeneratorRoute: Route = { 
     url: "md5-generator", 
     name: "MD5 Generator", 
@@ -79,6 +84,7 @@ export const AllRoutes: Route[] = [
     UrlEncodeDecodeRoute,
     HtmlEncodeDecodeRoute,
     Base64EncodeDecodeRoute,
+    Base64EncodeFileOrImageRoute,
     Md5GeneratorRoute,
     Sha1GeneratorRoute,
     Sha256GeneratorRoute,

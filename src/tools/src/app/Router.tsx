@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { Main } from "./Main";
 import { 
     Base64EncodeDecodeRoute, 
+    Base64EncodeFileOrImageRoute, 
     GuidGeneratorRoute, 
     HtmlEncodeDecodeRoute, 
     JsonFormatterRoute, 
@@ -28,6 +29,7 @@ import { JsonFormatter } from "../tools/json-formatter/JsonFormatter";
 import { JsonViewer } from "../tools/json-viewer/JsonViewer";
 import { UnitConverter } from "../tools/unit-converter/UnitConverter";
 import { LoanCalculator } from "../tools/loan-calculator/LoanCalculator";
+import { Base64EncodeFileOrImage } from "../tools/base64-encode-file-or-image/Base64EncodeFileOrImage";
 
 export const Router: React.FC = () => {
     return (
@@ -52,6 +54,7 @@ const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
             <Route path={`${props.match.url}/${UrlEncodeDecodeRoute.url}`} component={UrlEncodeDecode} />
             <Route path={`${props.match.url}/${HtmlEncodeDecodeRoute.url}`} component={HtmlEncodeDecode} />
             <Route path={`${props.match.url}/${Base64EncodeDecodeRoute.url}`} component={Base64EncodeDecode} />
+            <Route path={`${props.match.url}/${Base64EncodeFileOrImageRoute.url}`} component={Base64EncodeFileOrImage} />
             <Route path={`${props.match.url}/${Md5GeneratorRoute.url}`} component={Md5Generator} />
             <Route path={`${props.match.url}/${Sha1GeneratorRoute.url}`} component={Sha1Generator} />
             <Route path={`${props.match.url}/${Sha256GeneratorRoute.url}`} component={Sha256Generator} />
