@@ -1,4 +1,4 @@
-import { MDBBtn } from "mdb-react-ui-kit";
+import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { createRef, memo, useState } from "react";
 import { Base64EncodeFileOrImageUtils } from "./Base64EncodeFileOrImageUtils";
 
@@ -46,7 +46,15 @@ export const Base64EncodeFileOrImage: React.FC = () => {
 
     return (
         <>
-            <h1>Online Base64 Encode File Or Image</h1>
+            <h1 className="d-inline-block me-3">Online Base64 Encode File Or Image</h1>
+            <a
+                href="https://github.com/simetrio/base64-js-tools"
+                title="Code on Github"
+                target="_blank"
+                rel="noreferrer"
+            >
+                <MDBIcon color="black" fab icon="github-square" size="2x" />
+            </a>
             <div className="mb-3">
                 <MDBBtn onClick={onChooseFile}>Choose file</MDBBtn>
                 <MDBBtn
