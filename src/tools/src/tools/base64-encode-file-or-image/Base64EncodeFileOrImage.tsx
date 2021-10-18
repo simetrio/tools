@@ -1,6 +1,6 @@
 import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { createRef, memo, useState } from "react";
-import { Base64EncodeFileOrImageUtils } from "./Base64EncodeFileOrImageUtils";
+import { Base64 } from "base64-js-tools";
 
 interface FormValue {
     encoded: string,
@@ -31,7 +31,7 @@ export const Base64EncodeFileOrImage: React.FC = () => {
             reader.onload = function() {
                 var arrayBuffer = reader.result;
                 var bytes = new Uint8Array(arrayBuffer as any);
-                setFormValue({ encoded: Base64EncodeFileOrImageUtils.encode(bytes as any) });
+                setFormValue({ encoded: Base64.encodeByteArray(bytes as any) });
             }
         }
     }

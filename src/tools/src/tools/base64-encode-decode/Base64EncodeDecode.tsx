@@ -1,6 +1,6 @@
 import { MDBCol, MDBIcon, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { Base64EncodeDecodeUtils } from "./Base64EncodeDecodeUtils";
+import { Base64 } from "base64-js-tools";
 
 interface FormValue {
     decoded: string,
@@ -15,12 +15,12 @@ export const Base64EncodeDecode: React.FC = () => {
 
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: Base64EncodeDecodeUtils.encode(value) });
+        setFormValue({ ...formValue, decoded: value, encoded: Base64.encodeText(value) });
     }
 
     const onDecode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: Base64EncodeDecodeUtils.decode(value), encoded: value });
+        setFormValue({ ...formValue, decoded: Base64.decodeToText(value), encoded: value });
     }
 
     return (
