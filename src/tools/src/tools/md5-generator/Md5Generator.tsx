@@ -1,4 +1,4 @@
-import { MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
+import { MDBCol, MDBIcon, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { MD5 } from "md5-js-tools";
 
@@ -20,7 +20,15 @@ export const Md5Generator: React.FC = () => {
 
     return (
         <>
-            <h1>Online MD5 Generator</h1>
+            <h1 className="d-inline-block me-3">Online MD5 Generator</h1>
+            <a
+                href="https://github.com/simetrio/md5-js-tools"
+                title="Code on Github"
+                target="_blank"
+                rel="noreferrer"
+            >
+                <MDBIcon color="black" fab icon="github-square" size="2x" />
+            </a>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput
