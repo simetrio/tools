@@ -3,6 +3,7 @@ import { Base64EncodeDecode } from "../tools/base64-encode-decode/Base64EncodeDe
 import { Base64EncodeFileOrImage } from "../tools/base64-encode-file-or-image/Base64EncodeFileOrImage";
 import { GuidGenerator } from "../tools/guid-generator/GuidGenerator";
 import { HtmlEncodeDecode } from "../tools/html-encode-decode/HtmlEncodeDecode";
+import { JavaScriptOnlineEditor } from "../tools/javascript-online-editor/JavaScriptOnlineEditor";
 import { JsonFormatter } from "../tools/json-formatter/JsonFormatter";
 import { JsonViewer } from "../tools/json-viewer/JsonViewer";
 import { LoanCalculator } from "../tools/loan-calculator/LoanCalculator";
@@ -22,6 +23,12 @@ export interface Route {
 }
 
 export const AllRoutes: Route[] = [
+    {
+        url: "javascript-online-editor",
+        name: "JavaScript Editor",
+        title: "Online JavaScript Editor - Olrix Tools",
+        component: JavaScriptOnlineEditor,
+    },
     {
         url: "json-viewer",
         name: "Json Viewer",
