@@ -13,8 +13,8 @@ import {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
-    MDBDropdownLink
-  } from "mdb-react-ui-kit";
+    MDBDropdownLink,
+} from "mdb-react-ui-kit";
 
 export const Header: React.FC = () => {
     const [showBasic, setShowBasic] = useState(false);
@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
                                         Choose tools
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu>
-                                        {AllRoutes.map(x => (
+                                        {AllRoutes.map((x) => (
                                             <MDBDropdownItem key={x.url}>
                                                 <MDBDropdownLink href={`/tools/${x.url}/`}>{x.name}</MDBDropdownLink>
                                             </MDBDropdownItem>
@@ -58,5 +58,5 @@ export const Header: React.FC = () => {
                 </MDBContainer>
             </MDBNavbar>
         </>
-    )
-}
+    );
+};

@@ -1,9 +1,9 @@
-import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit"
+import { MDBBtn, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { AllRoutes } from "./Routes"
+import { AllRoutes } from "./Routes";
 
 interface FormValue {
-    search: string,
+    search: string;
 }
 
 export const Main: React.FC = () => {
@@ -14,32 +14,28 @@ export const Main: React.FC = () => {
     const onSearch = (e: any) => {
         const value = e.currentTarget.value || "";
         setFormValue({ ...formValue, search: value });
-    }
+    };
 
     const contains = (value1: string, value2: string) => {
         return value1.toLocaleLowerCase().includes(value2.toLocaleLowerCase());
-    }
+    };
 
-    const routes = formValue.search
-        ? AllRoutes.filter(x => contains(x.name, formValue.search))
-        : AllRoutes;
+    const routes = formValue.search ? AllRoutes.filter((x) => contains(x.name, formValue.search)) : AllRoutes;
 
     return (
         <>
             <div className="m-4">
-            <MDBInput
-                label="Search" 
-                value={formValue.search}
-                onChange={onSearch} 
-            />
+                <MDBInput label="Search" value={formValue.search} onChange={onSearch} />
             </div>
             <MDBRow>
-                {routes.map(x => (
+                {routes.map((x) => (
                     <MDBCol md="3" className="text-center my-2">
-                        <MDBBtn href={`/tools/${x.url}/`} tag="a">{x.name}</MDBBtn>
+                        <MDBBtn href={`/tools/${x.url}/`} tag="a">
+                            {x.name}
+                        </MDBBtn>
                     </MDBCol>
                 ))}
             </MDBRow>
         </>
-    )
-}
+    );
+};

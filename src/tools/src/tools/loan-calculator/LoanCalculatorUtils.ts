@@ -1,30 +1,30 @@
 interface Props {
-    amount: number,
-    term: number,
-    rate: number,
+    amount: number;
+    term: number;
+    rate: number;
 }
 
 export interface Result {
-    amount: number,
-    term: number,
-    rate: number,
-    monthlyPayment: number,
-    months: ResultRow[],
-    total: ResultRow,
+    amount: number;
+    term: number;
+    rate: number;
+    monthlyPayment: number;
+    months: ResultRow[];
+    total: ResultRow;
 }
 
 export interface ResultRow {
-    index: number,
-    date: Date,
-    payment: number,
-    principal: number,
-    interest: number,
-    balance: number,
+    index: number;
+    date: Date;
+    payment: number;
+    principal: number;
+    interest: number;
+    balance: number;
 }
 
 export const LoanCalculatorUtils = {
     calculate: (props: Props): Result | null => calculate(props),
-}
+};
 
 function calculate(props: Props): Result | null {
     if (!props.amount || !props.term || !props.rate) {
@@ -35,15 +35,15 @@ function calculate(props: Props): Result | null {
     const monthlyPayment = props.amount * (monthlyRate + monthlyRate / (Math.pow(1 + monthlyRate, props.term) - 1));
     const months = calculateMonths(monthlyRate, props.amount, props.term, monthlyPayment);
     const total = calculateTotal(months);
-    
+
     return {
         amount: props.amount,
         term: props.term,
         rate: props.rate,
         monthlyPayment,
         months,
-        total
-    }
+        total,
+    };
 }
 
 function calculateMonths(monthlyRate: number, amount: number, term: number, monthlyPayment: number): ResultRow[] {
@@ -65,7 +65,7 @@ function calculateMonths(monthlyRate: number, amount: number, term: number, mont
             principal,
             interest,
             balance,
-        })
+        });
     }
 
     return month;

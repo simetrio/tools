@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { GuidGeneratorUtils } from "./GuidGeneratorUtils";
 
 interface FormValue {
-    count: number,
-    uppercase: boolean,
-    braces: boolean,
-    hypens: boolean,
-    value: string[],
+    count: number;
+    uppercase: boolean;
+    braces: boolean;
+    hypens: boolean;
+    value: string[];
 }
 
 export const GuidGenerator: React.FC = () => {
@@ -21,7 +21,7 @@ export const GuidGenerator: React.FC = () => {
 
     const generate = (props: FormValue) => {
         setFormValue({ ...props, value: GuidGeneratorUtils.generate(props) });
-    }
+    };
 
     const onChange = (e: any) => {
         const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
@@ -37,7 +37,7 @@ export const GuidGenerator: React.FC = () => {
 
     const onGenerate = () => {
         generate(formValue);
-    }
+    };
 
     // eslint-disable-next-line
     useEffect(() => generate(formValue), []);
@@ -57,8 +57,8 @@ export const GuidGenerator: React.FC = () => {
 
             <MDBCol md="4" className="mb-3">
                 <MDBCheckbox
-                    name="uppercase" 
-                    id="uppercase" 
+                    name="uppercase"
+                    id="uppercase"
                     label="Uppercase"
                     onClick={onChangeBoolean}
                     defaultChecked={formValue.uppercase}
@@ -67,8 +67,8 @@ export const GuidGenerator: React.FC = () => {
 
             <MDBCol md="4" className="mb-3">
                 <MDBCheckbox
-                    name="braces" 
-                    id="braces" 
+                    name="braces"
+                    id="braces"
                     label="Braces"
                     onClick={onChangeBoolean}
                     defaultChecked={formValue.braces}
@@ -78,7 +78,7 @@ export const GuidGenerator: React.FC = () => {
             <MDBCol md="4" className="mb-3">
                 <MDBCheckbox
                     name="hypens"
-                    id="hypens" 
+                    id="hypens"
                     label="Hypens"
                     onClick={onChangeBoolean}
                     defaultChecked={formValue.hypens}
@@ -93,5 +93,5 @@ export const GuidGenerator: React.FC = () => {
                 <MDBInput label="Generated Guids" textarea rows={10} value={formValue.value.join("\n")} />
             </MDBCol>
         </>
-    )
-}
+    );
+};

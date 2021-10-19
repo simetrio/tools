@@ -9,16 +9,16 @@ export const Router: React.FC = () => {
             <Route path="/tools" component={ToolsRouter} />
             <Redirect to="/" />
         </Switch>
-    )
-}
+    );
+};
 
 const ToolsRouter: React.FC<RouteComponentProps> = (props) => {
     return (
         <Switch>
-            {AllRoutes.map(x => (
+            {AllRoutes.map((x) => (
                 <Route key={x.url} path={`${props.match.url}/${x.url}`} component={x.component} />
             ))}
             <Redirect to="/" />
         </Switch>
-    )
-}
+    );
+};
