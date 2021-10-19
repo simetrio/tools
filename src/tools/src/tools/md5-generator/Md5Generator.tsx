@@ -1,6 +1,6 @@
 import { MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { Md5GeneratorUtils } from "./Md5GeneratorUtils";
+import { MD5 } from "md5-js-tools";
 
 interface FormValue {
     decoded: string;
@@ -15,7 +15,7 @@ export const Md5Generator: React.FC = () => {
 
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: Md5GeneratorUtils.encode(value) });
+        setFormValue({ ...formValue, decoded: value, encoded: MD5.generate(value) });
     };
 
     return (
