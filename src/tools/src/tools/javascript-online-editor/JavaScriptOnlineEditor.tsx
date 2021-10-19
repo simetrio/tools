@@ -162,7 +162,7 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
         })(iframeRef.current.contentWindow.console);
 
         iframeRef.current.contentWindow.console = newConsole;
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, []);
 
     const html = htmlTemplate
