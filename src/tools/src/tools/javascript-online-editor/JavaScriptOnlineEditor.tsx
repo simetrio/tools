@@ -162,6 +162,7 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
         })(iframeRef.current.contentWindow.console);
 
         iframeRef.current.contentWindow.console = newConsole;
+    // eslint-disable-next-line
     }, []);
 
     const html = htmlTemplate
@@ -171,6 +172,7 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
 
     return (
         <iframe
+            title="html view"
             ref={iframeRef}
             srcDoc={html}
             className="w-100 square border-gray rounded"
