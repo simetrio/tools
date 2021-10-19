@@ -23,11 +23,23 @@ export const Md5Generator: React.FC = () => {
             <h1>Online MD5 Generator</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Text" textarea rows={15} value={formValue.decoded} onChange={onEncode} />
+                    <MDBInput
+                        label="Text"
+                        textarea
+                        rows={15}
+                        value={formValue.decoded}
+                        onChange={onEncode}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="MD5" textarea rows={15} value={formValue.encoded} readonly={true} />
+                    <MDBInput
+                        label="MD5"
+                        textarea
+                        rows={15}
+                        value={formValue.encoded}
+                        readonly={true}
+                    />
                 </MDBCol>
             </MDBRow>
         </>

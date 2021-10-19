@@ -23,7 +23,9 @@ export const Base64EncodeFileOrImage: React.FC = () => {
             const fileSizeMB = file.size / 1024 / 1024;
             if (fileSizeMB > maxSizeMB) {
                 setFormValue({
-                    encoded: `File too large. Max file size ${maxSizeMB} MB. File size ${fileSizeMB.toFixed(1)} MB`,
+                    encoded: `File too large. Max file size ${maxSizeMB} MB. File size ${fileSizeMB.toFixed(
+                        1,
+                    )} MB`,
                 });
                 return;
             }
@@ -59,10 +61,20 @@ export const Base64EncodeFileOrImage: React.FC = () => {
             </a>
             <div className="mb-3">
                 <MDBBtn onClick={onChooseFile}>Choose file</MDBBtn>
-                <MDBBtn className="mx-3" color="success" disabled={!formValue.encoded} onClick={onCopyToClipboard}>
+                <MDBBtn
+                    className="mx-3"
+                    color="success"
+                    disabled={!formValue.encoded}
+                    onClick={onCopyToClipboard}
+                >
                     Copy to clipboard
                 </MDBBtn>
-                <input type="file" style={{ display: "none" }} onChange={onUpload} ref={uploadFileRef} />
+                <input
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={onUpload}
+                    ref={uploadFileRef}
+                />
             </div>
             <div className="mb-3">
                 <Base64EncodeFileOrImageEncodedMemo value={formValue.encoded} />

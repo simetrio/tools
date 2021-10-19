@@ -13,7 +13,10 @@ export const JsonFormatter: React.FC = () => {
         encoded: "",
     });
 
-    const formatValueHtml = (value: string | number | boolean, className: "text-danger" | "text-success"): string => {
+    const formatValueHtml = (
+        value: string | number | boolean,
+        className: "text-danger" | "text-success",
+    ): string => {
         return `<span class=${className}>${value}</span>`;
     };
 
@@ -22,27 +25,44 @@ export const JsonFormatter: React.FC = () => {
             return formatValueHtml("null", "text-danger");
         }
 
-        const type = typeof value === "number" || typeof value === "boolean" ? "text-danger" : "text-success";
+        const type =
+            typeof value === "number" || typeof value === "boolean"
+                ? "text-danger"
+                : "text-success";
         return formatValueHtml(value, type);
     };
 
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: JsonFormatterUtils.format(value, formatValue) });
+        setFormValue({
+            ...formValue,
+            decoded: value,
+            encoded: JsonFormatterUtils.format(value, formatValue),
+        });
     };
 
-    const formatHtml = (value: string) => value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
+    const formatHtml = (value: string) =>
+        value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
 
     return (
         <>
             <h1>Online Json Formatter</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Json" textarea rows={15} value={formValue.decoded} onChange={onEncode} />
+                    <MDBInput
+                        label="Json"
+                        textarea
+                        rows={15}
+                        value={formValue.decoded}
+                        onChange={onEncode}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 385 }}>
+                    <div
+                        className="square border-gray rounded wordwrap px-2 py-1"
+                        style={{ height: 385 }}
+                    >
                         <div dangerouslySetInnerHTML={{ __html: formatHtml(formValue.encoded) }} />
                     </div>
                 </MDBCol>

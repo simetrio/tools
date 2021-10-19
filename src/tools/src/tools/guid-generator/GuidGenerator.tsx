@@ -90,7 +90,12 @@ export const GuidGenerator: React.FC = () => {
             </MDBCol>
 
             <MDBCol md="4" className="mb-3">
-                <MDBInput label="Generated Guids" textarea rows={10} value={formValue.value.join("\n")} />
+                <MDBInput
+                    label="Generated Guids"
+                    textarea
+                    rows={10}
+                    value={formValue.value.join("\n")}
+                />
             </MDBCol>
         </>
     );

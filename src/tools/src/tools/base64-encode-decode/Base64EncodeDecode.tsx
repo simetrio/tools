@@ -36,11 +36,23 @@ export const Base64EncodeDecode: React.FC = () => {
             </a>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Decoded Base64" textarea rows={20} value={formValue.decoded} onChange={onEncode} />
+                    <MDBInput
+                        label="Decoded Base64"
+                        textarea
+                        rows={20}
+                        value={formValue.decoded}
+                        onChange={onEncode}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Encoded Base64" textarea rows={20} value={formValue.encoded} onChange={onDecode} />
+                    <MDBInput
+                        label="Encoded Base64"
+                        textarea
+                        rows={20}
+                        value={formValue.encoded}
+                        onChange={onDecode}
+                    />
                 </MDBCol>
             </MDBRow>
         </>

@@ -179,7 +179,8 @@ function convertToWordArray(value: string): number[] {
     while (lByteCount < lMessageLength) {
         lWordCount = (lByteCount - (lByteCount % 4)) / 4;
         lBytePosition = (lByteCount % 4) * 8;
-        lWordArray[lWordCount] = lWordArray[lWordCount] | (value.charCodeAt(lByteCount) << lBytePosition);
+        lWordArray[lWordCount] =
+            lWordArray[lWordCount] | (value.charCodeAt(lByteCount) << lBytePosition);
         lByteCount++;
     }
     lWordCount = (lByteCount - (lByteCount % 4)) / 4;
@@ -198,7 +199,8 @@ function wordToHex(lValue: number): string {
     for (lCount = 0; lCount <= 3; lCount++) {
         lByte = (lValue >>> (lCount * 8)) & 255;
         wordToHexValueTemp = "0" + lByte.toString(16);
-        wordToHexValue = wordToHexValue + wordToHexValueTemp.substr(wordToHexValueTemp.length - 2, 2);
+        wordToHexValue =
+            wordToHexValue + wordToHexValueTemp.substr(wordToHexValueTemp.length - 2, 2);
     }
     return wordToHexValue;
 }

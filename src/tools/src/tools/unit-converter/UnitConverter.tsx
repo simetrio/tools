@@ -55,7 +55,11 @@ const UnitConverterRow: React.FC<UnitConverterRowParams> = (params: UnitConverte
         const newFormValue = { ...formValue, [e.target.name]: e.currentTarget.value };
         setFormValue({
             ...newFormValue,
-            result: UnitConverterUtils.convert(newFormValue.value, newFormValue.from, newFormValue.to),
+            result: UnitConverterUtils.convert(
+                newFormValue.value,
+                newFormValue.from,
+                newFormValue.to,
+            ),
         });
     };
 
@@ -80,7 +84,11 @@ const UnitConverterRow: React.FC<UnitConverterRowParams> = (params: UnitConverte
                 </MDBCol>
 
                 <MDBCol md="3" className="mb-3">
-                    <UnitConverterUnitsDropDown name="from" units={params.units} onChange={onChangeUnit} />
+                    <UnitConverterUnitsDropDown
+                        name="from"
+                        units={params.units}
+                        onChange={onChangeUnit}
+                    />
                 </MDBCol>
 
                 <MDBCol md="3" className="mb-3">
@@ -94,7 +102,11 @@ const UnitConverterRow: React.FC<UnitConverterRowParams> = (params: UnitConverte
                 </MDBCol>
 
                 <MDBCol md="3" className="mb-3">
-                    <UnitConverterUnitsDropDown name="to" units={params.units} onChange={onChangeUnit} />
+                    <UnitConverterUnitsDropDown
+                        name="to"
+                        units={params.units}
+                        onChange={onChangeUnit}
+                    />
                 </MDBCol>
             </MDBRow>
         </>
@@ -129,7 +141,11 @@ const UnitConverterUnitsDropDown: React.FC<UnitConverterUnitsDropDownParams> = (
                 <MDBDropdownToggle>{formValue.value}</MDBDropdownToggle>
                 <MDBDropdownMenu>
                     <MDBDropdownItem>
-                        <MDBDropdownLink tag="button" type="button" className="bg-light p-0 m-0"></MDBDropdownLink>
+                        <MDBDropdownLink
+                            tag="button"
+                            type="button"
+                            className="bg-light p-0 m-0"
+                        ></MDBDropdownLink>
                     </MDBDropdownItem>
                     {params.units.map((x) => (
                         <MDBDropdownItem>

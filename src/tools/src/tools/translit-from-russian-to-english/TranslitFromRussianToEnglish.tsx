@@ -15,7 +15,11 @@ export const TranslitFromRussianToEnglish: React.FC = () => {
 
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: TranslitFromRussianToEnglishUtils.encode(value) });
+        setFormValue({
+            ...formValue,
+            decoded: value,
+            encoded: TranslitFromRussianToEnglishUtils.encode(value),
+        });
     };
 
     return (
@@ -23,7 +27,13 @@ export const TranslitFromRussianToEnglish: React.FC = () => {
             <h1>Online Translint From Russian To English</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Russian text" textarea rows={15} value={formValue.decoded} onChange={onEncode} />
+                    <MDBInput
+                        label="Russian text"
+                        textarea
+                        rows={15}
+                        value={formValue.decoded}
+                        onChange={onEncode}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">

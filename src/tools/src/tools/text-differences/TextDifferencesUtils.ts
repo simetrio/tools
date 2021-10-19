@@ -26,7 +26,8 @@ function removeAt<T>(array: T[], index: number) {
 
 class TextDifferencer {
     public findDifferencesBetweenStrings(string0: string, string1: string): TextDifferences {
-        let lengthOfShorterString: number = string0.length <= string1.length ? string0.length : string1.length;
+        let lengthOfShorterString: number =
+            string0.length <= string1.length ? string0.length : string1.length;
 
         let numberOfExtremes = 2;
         let passagePairsMatchingAtExtremes: TextPassagePair[] = [];
@@ -55,14 +56,19 @@ class TextDifferencer {
                 string1 = string1.substr(lengthOfMatchingSubstring);
             } // if (e === 1)
             else {
-                matchingSubstringAtExtreme = string0.substr(string0.length - lengthOfMatchingSubstring);
+                matchingSubstringAtExtreme = string0.substr(
+                    string0.length - lengthOfMatchingSubstring,
+                );
                 string0 = string0.substr(0, string0.length - lengthOfMatchingSubstring);
                 string1 = string1.substr(0, string1.length - lengthOfMatchingSubstring);
             }
 
             let passagePairMatchingAtExtreme = new TextPassagePair(
                 true, // doPassagesMatch
-                [new TextPassage(matchingSubstringAtExtreme), new TextPassage(matchingSubstringAtExtreme)],
+                [
+                    new TextPassage(matchingSubstringAtExtreme),
+                    new TextPassage(matchingSubstringAtExtreme),
+                ],
             );
 
             passagePairsMatchingAtExtremes.push(passagePairMatchingAtExtreme);
@@ -70,13 +76,26 @@ class TextDifferencer {
 
         let passagePairsAll: TextPassagePair[] = [];
 
-        var passagePairsMatching = this.findPassagePairsMatchingBetweenStrings(string0, string1, [0, 0]);
+        var passagePairsMatching = this.findPassagePairsMatchingBetweenStrings(
+            string0,
+            string1,
+            [0, 0],
+        );
 
-        this.insertPassagePairsDifferentBetweenMatching(string0, string1, passagePairsMatching, passagePairsAll);
+        this.insertPassagePairsDifferentBetweenMatching(
+            string0,
+            string1,
+            passagePairsMatching,
+            passagePairsAll,
+        );
 
         for (var e = 0; e < passagePairsMatchingAtExtremes.length; e++) {
             var passagePairMatchingAtExtreme = passagePairsMatchingAtExtremes[e];
-            insertElementAt(passagePairsAll, passagePairMatchingAtExtreme, e === 0 ? 0 : passagePairsAll.length);
+            insertElementAt(
+                passagePairsAll,
+                passagePairMatchingAtExtreme,
+                e === 0 ? 0 : passagePairsAll.length,
+            );
         }
 
         var returnValue = new TextDifferences(passagePairsAll);
@@ -122,11 +141,18 @@ class TextDifferencer {
             ],
         );
 
-        var passagePairSetsMatchingBeforeAndAfter = [passagePairsMatchingBeforeCommon, passagePairsMatchingAfterCommon];
+        var passagePairSetsMatchingBeforeAndAfter = [
+            passagePairsMatchingBeforeCommon,
+            passagePairsMatchingAfterCommon,
+        ];
 
         for (var i = 0; i < passagePairSetsMatchingBeforeAndAfter.length; i++) {
             var passagePairsToInsert = passagePairSetsMatchingBeforeAndAfter[i];
-            insertElementsAt(passagePairsMatching, passagePairsToInsert, i === 0 ? 0 : passagePairsMatching.length);
+            insertElementsAt(
+                passagePairsMatching,
+                passagePairsToInsert,
+                i === 0 ? 0 : passagePairsMatching.length,
+            );
         }
 
         for (i = 0; i < longestCommonPassagePair.passages.length; i++) {
@@ -243,7 +269,10 @@ class TextDifferencer {
 
         var passagePairFinal = passagePairsAll[indexOfPassagePairFinal];
 
-        if (passagePairFinal.doPassagesMatch === true && passagePairFinal.passages[0].text.length === 0) {
+        if (
+            passagePairFinal.doPassagesMatch === true &&
+            passagePairFinal.passages[0].text.length === 0
+        ) {
             removeAt(passagePairsAll, indexOfPassagePairFinal);
         }
     }
@@ -263,7 +292,10 @@ class TextDifferencer {
 
                 passagePairToInsertAfter.passages[1].position + lengthOfPassageToInsertAfter,
             ],
-            [passagePairToInsertBefore.passages[0].position, passagePairToInsertBefore.passages[1].position],
+            [
+                passagePairToInsertBefore.passages[0].position,
+                passagePairToInsertBefore.passages[1].position,
+            ],
         ];
 
         var passageToInsert0 = new TextPassage(
@@ -289,7 +321,10 @@ class TextDifferencer {
             [passageToInsert0, passageToInsert1],
         );
 
-        if (passagePairToInsert.passages[0].text.length > 0 || passagePairToInsert.passages[1].text.length > 0) {
+        if (
+            passagePairToInsert.passages[0].text.length > 0 ||
+            passagePairToInsert.passages[1].text.length > 0
+        ) {
             passagePairsAll.push(passagePairToInsert);
         }
     }

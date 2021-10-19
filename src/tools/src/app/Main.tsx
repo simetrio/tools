@@ -20,7 +20,9 @@ export const Main: React.FC = () => {
         return value1.toLocaleLowerCase().includes(value2.toLocaleLowerCase());
     };
 
-    const routes = formValue.search ? AllRoutes.filter((x) => contains(x.name, formValue.search)) : AllRoutes;
+    const routes = formValue.search
+        ? AllRoutes.filter((x) => contains(x.name, formValue.search))
+        : AllRoutes;
 
     return (
         <>

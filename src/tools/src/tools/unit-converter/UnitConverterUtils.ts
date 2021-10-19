@@ -37,7 +37,16 @@ export enum UnitType {
 }
 
 export const UnitGroups: { [unitType: string]: Unit[] } = {
-    [UnitType.DataStorage]: [Unit.bit, Unit.b, Unit.KB, Unit.MB, Unit.GB, Unit.TB, Unit.PB, Unit.EB],
+    [UnitType.DataStorage]: [
+        Unit.bit,
+        Unit.b,
+        Unit.KB,
+        Unit.MB,
+        Unit.GB,
+        Unit.TB,
+        Unit.PB,
+        Unit.EB,
+    ],
     [UnitType.Time]: [Unit.tick, Unit.ms, Unit.s, Unit.m, Unit.h, Unit.d, Unit.M, Unit.y],
     // [UnitType.]: [Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit., Unit.,],
 };

@@ -1,9 +1,14 @@
 export const JsonFormatterUtils = {
-    format: (value: string, formatValue: (value: string | number | boolean | null) => string): string =>
-        formatJson(value, formatValue),
+    format: (
+        value: string,
+        formatValue: (value: string | number | boolean | null) => string,
+    ): string => formatJson(value, formatValue),
 };
 
-function formatJson(value: string, formatValue: (value: string | number | boolean | null) => string) {
+function formatJson(
+    value: string,
+    formatValue: (value: string | number | boolean | null) => string,
+) {
     if (!value) {
         return "";
     }
@@ -33,7 +38,9 @@ function formatString(value: string, formatValue: (value: string) => string): st
 }
 
 function formatBoolean(value: string, formatValue: (value: boolean) => string): string {
-    return value.replace(/true/, (_) => formatValue(true)).replace(/false/, (_) => formatValue(false));
+    return value
+        .replace(/true/, (_) => formatValue(true))
+        .replace(/false/, (_) => formatValue(false));
 }
 
 function formatNull(value: string, formatValue: (value: any) => string): string {

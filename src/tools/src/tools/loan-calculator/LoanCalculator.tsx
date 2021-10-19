@@ -130,7 +130,9 @@ interface LoanCalculatorFromTermValue {
     termPeriod: string;
 }
 
-const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (props: LoanCalculatorFromTermProps) => {
+const LoanCalculatorFromTerm: React.FC<LoanCalculatorFromTermProps> = (
+    props: LoanCalculatorFromTermProps,
+) => {
     const [formValue, setFormValue] = useState<LoanCalculatorFromTermValue>({
         term: props.value / 12,
         termPeriod: "years",
@@ -193,7 +195,11 @@ const LoanCalculatorFromDropDown: React.FC<LoanCalculatorFromDropDownParams> = (
             <MDBDropdownToggle className={props.className}>{formValue.value}</MDBDropdownToggle>
             <MDBDropdownMenu>
                 <MDBDropdownItem>
-                    <MDBDropdownLink tag="button" type="button" className="bg-light p-0 m-0"></MDBDropdownLink>
+                    <MDBDropdownLink
+                        tag="button"
+                        type="button"
+                        className="bg-light p-0 m-0"
+                    ></MDBDropdownLink>
                 </MDBDropdownItem>
                 {props.values.map((x) => (
                     <MDBDropdownItem key={x}>
@@ -223,7 +229,9 @@ interface LoanCalculatorTableParams {
 
 const maxCountStep = 300;
 
-const LoanCalculatorTable: React.FC<LoanCalculatorTableParams> = (props: LoanCalculatorTableParams) => {
+const LoanCalculatorTable: React.FC<LoanCalculatorTableParams> = (
+    props: LoanCalculatorTableParams,
+) => {
     const [formValue, setFormValue] = useState<LoanCalculatorTableValue>({
         maxCount: maxCountStep,
     });
@@ -320,7 +328,9 @@ interface LoanCalculatorSummaryParams {
     result: Result;
 }
 
-const LoanCalculatorSummary: React.FC<LoanCalculatorSummaryParams> = (props: LoanCalculatorSummaryParams) => {
+const LoanCalculatorSummary: React.FC<LoanCalculatorSummaryParams> = (
+    props: LoanCalculatorSummaryParams,
+) => {
     return (
         <MDBTable small>
             <MDBTableBody>

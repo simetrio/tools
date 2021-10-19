@@ -24,11 +24,20 @@ export const JsonViewer: React.FC = () => {
             <h1>Online Json Viewer</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Json" textarea rows={15} value={formValue.decoded} onChange={onViewJson} />
+                    <MDBInput
+                        label="Json"
+                        textarea
+                        rows={15}
+                        value={formValue.decoded}
+                        onChange={onViewJson}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 385 }}></div>
+                    <div
+                        className="square border-gray rounded wordwrap px-2 py-1"
+                        style={{ height: 385 }}
+                    ></div>
                 </MDBCol>
             </MDBRow>
         </>

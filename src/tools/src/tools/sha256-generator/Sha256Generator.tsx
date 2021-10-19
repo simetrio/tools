@@ -23,11 +23,23 @@ export const Sha256Generator: React.FC = () => {
             <h1>Online SHA256 Generator</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Text" textarea rows={15} value={formValue.decoded} onChange={onEncode} />
+                    <MDBInput
+                        label="Text"
+                        textarea
+                        rows={15}
+                        value={formValue.decoded}
+                        onChange={onEncode}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="SHA256" textarea rows={15} value={formValue.encoded} readonly={true} />
+                    <MDBInput
+                        label="SHA256"
+                        textarea
+                        rows={15}
+                        value={formValue.encoded}
+                        readonly={true}
+                    />
                 </MDBCol>
             </MDBRow>
         </>

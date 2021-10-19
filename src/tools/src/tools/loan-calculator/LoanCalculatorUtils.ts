@@ -32,7 +32,8 @@ function calculate(props: Props): Result | null {
     }
 
     const monthlyRate = props.rate / 12 / 100;
-    const monthlyPayment = props.amount * (monthlyRate + monthlyRate / (Math.pow(1 + monthlyRate, props.term) - 1));
+    const monthlyPayment =
+        props.amount * (monthlyRate + monthlyRate / (Math.pow(1 + monthlyRate, props.term) - 1));
     const months = calculateMonths(monthlyRate, props.amount, props.term, monthlyPayment);
     const total = calculateTotal(months);
 
@@ -46,7 +47,12 @@ function calculate(props: Props): Result | null {
     };
 }
 
-function calculateMonths(monthlyRate: number, amount: number, term: number, monthlyPayment: number): ResultRow[] {
+function calculateMonths(
+    monthlyRate: number,
+    amount: number,
+    term: number,
+    monthlyPayment: number,
+): ResultRow[] {
     const month: ResultRow[] = [];
     let balance = amount;
 

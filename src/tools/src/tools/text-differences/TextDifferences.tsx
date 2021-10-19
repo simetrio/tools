@@ -44,7 +44,8 @@ export const TextDifferences: React.FC = () => {
         findDifferences(formValue.before, e.currentTarget.value || "");
     };
 
-    const formatHtml = (value: string) => value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
+    const formatHtml = (value: string) =>
+        value.replace(/\n/g, "<br/>").replace(/\s\s/g, "&nbsp;&nbsp;");
 
     return (
         <>
@@ -61,14 +62,25 @@ export const TextDifferences: React.FC = () => {
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBInput label="Text After" textarea rows={15} value={formValue.after} onChange={onChangeAfter} />
+                    <MDBInput
+                        label="Text After"
+                        textarea
+                        rows={15}
+                        value={formValue.after}
+                        onChange={onChangeAfter}
+                    />
                 </MDBCol>
             </MDBRow>
             <h3>Differences</h3>
             <MDBRow>
                 <MDBCol md="12" className="mb-3">
-                    <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 385 }}>
-                        <div dangerouslySetInnerHTML={{ __html: formatHtml(formValue.differences) }} />
+                    <div
+                        className="square border-gray rounded wordwrap px-2 py-1"
+                        style={{ height: 385 }}
+                    >
+                        <div
+                            dangerouslySetInnerHTML={{ __html: formatHtml(formValue.differences) }}
+                        />
                     </div>
                 </MDBCol>
             </MDBRow>

@@ -37,7 +37,10 @@ function encodeSha1(value: string): string {
             break;
 
         case 2:
-            i = (value.charCodeAt(valueLength - 2) << 24) | (value.charCodeAt(valueLength - 1) << 16) | 0x08000;
+            i =
+                (value.charCodeAt(valueLength - 2) << 24) |
+                (value.charCodeAt(valueLength - 1) << 16) |
+                0x08000;
             break;
 
         case 3:
@@ -58,7 +61,8 @@ function encodeSha1(value: string): string {
 
     for (blockstart = 0; blockstart < words.length; blockstart += 16) {
         for (i = 0; i < 16; i++) W[i] = words[blockstart + i];
-        for (i = 16; i <= 79; i++) W[i] = rotateLeft(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
+        for (i = 16; i <= 79; i++)
+            W[i] = rotateLeft(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
 
         A = H0;
         B = H1;
@@ -85,7 +89,9 @@ function encodeSha1(value: string): string {
         }
 
         for (i = 40; i <= 59; i++) {
-            temp = (rotateLeft(A, 5) + ((B & C) | (B & D) | (C & D)) + E + W[i] + 0x8f1bbcdc) & 0x0ffffffff;
+            temp =
+                (rotateLeft(A, 5) + ((B & C) | (B & D) | (C & D)) + E + W[i] + 0x8f1bbcdc) &
+                0x0ffffffff;
             E = D;
             D = C;
             C = rotateLeft(B, 30);
