@@ -13,6 +13,8 @@ namespace PublishTools
 
         public string Get(string name) => _args[name];
 
+        public string TryGet(string name) => _args.TryGetValue(name, out var value) ? value : null;
+
         public static CommandLine Parse(string[] args)
         {
             var argsDic = new Dictionary<string, string>();
