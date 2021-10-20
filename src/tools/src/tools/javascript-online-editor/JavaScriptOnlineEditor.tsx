@@ -32,6 +32,8 @@ const messages: IMessages = {
     values: [],
 };
 
+let timeout = 0;
+
 export const JavaScriptOnlineEditor: React.FC = () => {
     const [formValue, setFormValue] = useState<FormValue>({
         html: defaultHtml,
@@ -47,6 +49,13 @@ export const JavaScriptOnlineEditor: React.FC = () => {
         reload: false,
     });
 
+    const executeAsync = (action: () => void) => {
+        if (timeout) {
+            window.clearTimeout(timeout);
+        }
+        timeout = window.setTimeout(action, 1000);
+    };
+
     const onChange = (name: string, value: string) => {
         setReloadValue({ reload: true });
 
@@ -54,9 +63,7 @@ export const JavaScriptOnlineEditor: React.FC = () => {
         setConsoleValue({ messages: [...messages.values] });
         setFormValue({ ...formValue, [name]: value });
 
-        window.setTimeout(() => {
-            setReloadValue({ reload: false });
-        }, 500);
+        executeAsync(() => setReloadValue({ reload: false }));
     };
 
     const onLog = (message: string) => {
