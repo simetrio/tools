@@ -25,7 +25,7 @@ export const Md5Generator: React.FC = () => {
                 href="https://github.com/simetrio/md5-js-tools"
                 title="Code on Github"
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer nofollow"
             >
                 <MDBIcon color="black" fab icon="github-square" size="2x" />
             </a>
