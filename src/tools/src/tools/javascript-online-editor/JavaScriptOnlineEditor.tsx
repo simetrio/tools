@@ -144,22 +144,22 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
     const iframeRef: any = createRef();
 
     useEffect(() => {
-        const newConsole = ((oldCons: any) => {
+        const newConsole = ((oldConsole: any) => {
             return {
                 log: function (message: string) {
-                    oldCons.log(message);
+                    oldConsole.log(message);
                     props.onLog(message);
                 },
                 info: function (message: string) {
-                    oldCons.info(message);
+                    oldConsole.info(message);
                     props.onLog(message);
                 },
                 warn: function (message: string) {
-                    oldCons.warn(message);
+                    oldConsole.warn(message);
                     props.onLog(message);
                 },
                 error: function (message: string) {
-                    oldCons.error(message);
+                    oldConsole.error(message);
                     props.onLog(message);
                 },
             };
