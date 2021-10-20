@@ -355,5 +355,6 @@ const defaultJavaScript: string = `function onClick() {
 console.log("Application started");`;
 
 const defaultCss: string = `body {
+    text-align: center;
     padding: 50px;
 }`;
