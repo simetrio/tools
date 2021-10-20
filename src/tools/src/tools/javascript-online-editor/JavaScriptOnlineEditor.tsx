@@ -93,23 +93,14 @@ export const JavaScriptOnlineEditor: React.FC = () => {
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
-                    <MDBRow>
-                        <MDBCol md="12" className="mb-3">
-                            <JavaScriptOnlineEditorConsole messages={consoleValue.messages} />
-                        </MDBCol>
-
-                        <MDBCol md="12" className="mb-3">
-                            {!reloadValue.reload && (
-                                <JavaScriptOnlineEditorHtml
-                                    html={formValue.html}
-                                    javaScript={formValue.javaScript}
-                                    css={formValue.css}
-                                    onLog={onLog}
-                                />
-                            )}
-                            {reloadValue.reload && <JavaScriptOnlineEditorEmptyHtml />}
-                        </MDBCol>
-                    </MDBRow>
+                    <JavaScriptOnlineEditorResultTabs
+                        html={formValue.html}
+                        javaScript={formValue.javaScript}
+                        css={formValue.css}
+                        reload={reloadValue.reload}
+                        messages={consoleValue.messages}
+                        onLog={onLog}
+                    />
                 </MDBCol>
             </MDBRow>
         </>
@@ -181,10 +172,80 @@ const JavaScriptOnlineEditorInput: React.FC<JavaScriptOnlineEditorInputProps> = 
         <MDBInput
             name={props.name}
             textarea
-            rows={21}
+            rows={16}
             value={props.value}
             onChange={(e: any) => props.onChange(e.target.name, e.currentTarget.value)}
         />
+    );
+};
+
+interface JavaScriptOnlineEditorResultTabsProps {
+    html: string;
+    javaScript: string;
+    css: string;
+    reload: boolean;
+    messages: string[];
+    onLog: (message: string) => void;
+}
+
+enum JavaScriptOnlineEditorResultTab {
+    preview,
+    console,
+}
+
+const JavaScriptOnlineEditorResultTabs: React.FC<JavaScriptOnlineEditorResultTabsProps> = (
+    props: JavaScriptOnlineEditorResultTabsProps,
+) => {
+    const [activeTab, setActiveTab] = useState(JavaScriptOnlineEditorResultTab.preview);
+
+    const onClick = (tab: JavaScriptOnlineEditorResultTab) => {
+        if (tab === activeTab) {
+            return;
+        }
+
+        setActiveTab(tab);
+    };
+
+    return (
+        <>
+            <MDBTabs justify className="mb-3">
+                <MDBTabsItem>
+                    <MDBTabsLink
+                        onClick={() => onClick(JavaScriptOnlineEditorResultTab.preview)}
+                        active={activeTab === JavaScriptOnlineEditorResultTab.preview}
+                    >
+                        Preview
+                    </MDBTabsLink>
+                </MDBTabsItem>
+
+                <MDBTabsItem>
+                    <MDBTabsLink
+                        onClick={() => onClick(JavaScriptOnlineEditorResultTab.console)}
+                        active={activeTab === JavaScriptOnlineEditorResultTab.console}
+                    >
+                        Console
+                    </MDBTabsLink>
+                </MDBTabsItem>
+            </MDBTabs>
+
+            <MDBTabsContent>
+                <MDBTabsPane show={activeTab === JavaScriptOnlineEditorResultTab.preview}>
+                    {!props.reload && (
+                        <JavaScriptOnlineEditorHtml
+                            html={props.html}
+                            javaScript={props.javaScript}
+                            css={props.css}
+                            onLog={props.onLog}
+                        />
+                    )}
+                    {props.reload && <JavaScriptOnlineEditorEmptyHtml />}
+                </MDBTabsPane>
+
+                <MDBTabsPane show={activeTab === JavaScriptOnlineEditorResultTab.console}>
+                    <JavaScriptOnlineEditorConsole messages={props.messages} />
+                </MDBTabsPane>
+            </MDBTabsContent>
+        </>
     );
 };
 
@@ -237,14 +298,14 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
             ref={iframeRef}
             srcDoc={html}
             className="w-100 square border-gray rounded"
-            style={{ height: 321 }}
+            style={{ height: 410 }}
             frameBorder="0"
         ></iframe>
     );
 };
 
 const JavaScriptOnlineEditorEmptyHtml: React.FC = () => {
-    return <div className="w-100 square border-gray rounded mb-2" style={{ height: 321 }}></div>;
+    return <div className="w-100 square border-gray rounded mb-2" style={{ height: 410 }}></div>;
 };
 
 interface JavaScriptOnlineEditorConsoleProps {
@@ -257,7 +318,7 @@ const JavaScriptOnlineEditorConsole: React.FC<JavaScriptOnlineEditorConsoleProps
     const consoleText = !props.messages.length ? "" : props.messages.reduce((r, x) => `${r}\n${x}`);
 
     return (
-        <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 260 }}>
+        <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 410 }}>
             <div dangerouslySetInnerHTML={{ __html: consoleText }} />
         </div>
     );
