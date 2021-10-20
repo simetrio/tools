@@ -12,6 +12,7 @@ import { Sha1Generator } from "../tools/sha1-generator/Sha1Generator";
 import { Sha256Generator } from "../tools/sha256-generator/Sha256Generator";
 import { TextDifferences } from "../tools/text-differences/TextDifferences";
 import { TranslitFromRussianToEnglish } from "../tools/translit-from-russian-to-english/TranslitFromRussianToEnglish";
+import { UnicodeToUtf8Converter } from "../tools/unicode-to-utf8-converter/UnicodeToUtf8Converter";
 import { UnitConverter } from "../tools/unit-converter/UnitConverter";
 import { UrlEncodeDecode } from "../tools/url-encode-decode/UrlEncodeDecode";
 
@@ -112,5 +113,11 @@ export const AllRoutes: Route[] = [
         name: "SHA256 Generator",
         title: "Online SHA256 Generator - Olrix Tools",
         component: Sha256Generator,
+    },
+    {
+        url: "unicode-to-utf8-converter",
+        name: "Unicode To UTF8 Converter",
+        title: "Online Unicode To UTF8 Converter - Olrix Tools",
+        component: UnicodeToUtf8Converter,
     },
 ];
