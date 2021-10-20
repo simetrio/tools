@@ -1,4 +1,13 @@
-import { MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
+import {
+    MDBCol,
+    MDBInput,
+    MDBRow,
+    MDBTabs,
+    MDBTabsContent,
+    MDBTabsItem,
+    MDBTabsLink,
+    MDBTabsPane,
+} from "mdb-react-ui-kit";
 import { createRef, useEffect, useState } from "react";
 
 interface FormValue {
@@ -40,11 +49,11 @@ export const JavaScriptOnlineEditor: React.FC = () => {
 
     const onChange = (name: string, value: string) => {
         setReloadValue({ reload: true });
-       
+
         messages.values = [];
         setConsoleValue({ messages: [...messages.values] });
         setFormValue({ ...formValue, [name]: value });
-       
+
         window.setTimeout(() => {
             setReloadValue({ reload: false });
         }, 500);
@@ -60,31 +69,27 @@ export const JavaScriptOnlineEditor: React.FC = () => {
             <h1>Online JavaScript Editor</h1>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
-                    <MDBRow>
-                        <MDBCol md="12" className="mb-3">
-                            <JavaScriptOnlineEditorInput
-                                name="html"
-                                value={formValue.html}
-                                onChange={onChange}
-                            />
-                        </MDBCol>
-
-                        <MDBCol md="12" className="mb-3">
-                            <JavaScriptOnlineEditorInput
-                                name="javaScript"
-                                value={formValue.javaScript}
-                                onChange={onChange}
-                            />
-                        </MDBCol>
-
-                        <MDBCol md="12" className="mb-3">
-                            <JavaScriptOnlineEditorInput
-                                name="css"
-                                value={formValue.css}
-                                onChange={onChange}
-                            />
-                        </MDBCol>
-                    </MDBRow>
+                    <JavaScriptOnlineEditorTabs
+                        items={[
+                            {
+                                title: "Html",
+                                name: "html",
+                                value: formValue.html,
+                            },
+                            {
+                                title: "JavaScript",
+                                name: "javaScript",
+                                value: formValue.javaScript,
+                            },
+                            {
+                                title: "Css",
+                                name: "css",
+                                value: formValue.css,
+                            },
+                        ]}
+                        defaultItem={1}
+                        onChange={onChange}
+                    />
                 </MDBCol>
 
                 <MDBCol md="6" className="mb-3">
@@ -111,6 +116,58 @@ export const JavaScriptOnlineEditor: React.FC = () => {
     );
 };
 
+interface JavaScriptOnlineEditorTabsProps {
+    items: JavaScriptOnlineEditorTabsItem[];
+    defaultItem: number;
+    onChange: (name: string, value: string) => void;
+}
+
+interface JavaScriptOnlineEditorTabsItem {
+    title: string;
+    name: string;
+    value: string;
+}
+
+const JavaScriptOnlineEditorTabs: React.FC<JavaScriptOnlineEditorTabsProps> = (
+    props: JavaScriptOnlineEditorTabsProps,
+) => {
+    const [activeTab, setActiveTab] = useState(props.items[props.defaultItem].name);
+
+    const onClick = (name: string) => {
+        if (name === activeTab) {
+            return;
+        }
+
+        setActiveTab(name);
+    };
+
+    return (
+        <>
+            <MDBTabs justify className="mb-3">
+                {props.items.map((x) => (
+                    <MDBTabsItem>
+                        <MDBTabsLink onClick={() => onClick(x.name)} active={activeTab === x.name}>
+                            {x.title}
+                        </MDBTabsLink>
+                    </MDBTabsItem>
+                ))}
+            </MDBTabs>
+
+            <MDBTabsContent>
+                {props.items.map((x) => (
+                    <MDBTabsPane show={activeTab === x.name}>
+                        <JavaScriptOnlineEditorInput
+                            name={x.name}
+                            value={x.value}
+                            onChange={props.onChange}
+                        />
+                    </MDBTabsPane>
+                ))}
+            </MDBTabsContent>
+        </>
+    );
+};
+
 interface JavaScriptOnlineEditorInputProps {
     name: string;
     value: string;
@@ -124,7 +181,7 @@ const JavaScriptOnlineEditorInput: React.FC<JavaScriptOnlineEditorInputProps> = 
         <MDBInput
             name={props.name}
             textarea
-            rows={15}
+            rows={21}
             value={props.value}
             onChange={(e: any) => props.onChange(e.target.name, e.currentTarget.value)}
         />
@@ -180,14 +237,14 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
             ref={iframeRef}
             srcDoc={html}
             className="w-100 square border-gray rounded"
-            style={{ height: 360 }}
+            style={{ height: 321 }}
             frameBorder="0"
         ></iframe>
     );
 };
 
 const JavaScriptOnlineEditorEmptyHtml: React.FC = () => {
-    return <div className="w-100 square border-gray rounded" style={{ height: 360 }}></div>;
+    return <div className="w-100 square border-gray rounded mb-2" style={{ height: 321 }}></div>;
 };
 
 interface JavaScriptOnlineEditorConsoleProps {
