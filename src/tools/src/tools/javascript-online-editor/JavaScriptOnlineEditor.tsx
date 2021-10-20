@@ -38,11 +38,13 @@ export const JavaScriptOnlineEditor: React.FC = () => {
         reload: false,
     });
 
-    const onChange = (e: any) => {
+    const onChange = (name: string, value: string) => {
         setReloadValue({ reload: true });
+       
         messages.values = [];
         setConsoleValue({ messages: [...messages.values] });
-        setFormValue({ ...formValue, [e.target.name]: e.currentTarget.value });
+        setFormValue({ ...formValue, [name]: value });
+       
         window.setTimeout(() => {
             setReloadValue({ reload: false });
         }, 500);
@@ -53,10 +55,6 @@ export const JavaScriptOnlineEditor: React.FC = () => {
         setConsoleValue({ messages: [...messages.values] });
     };
 
-    const consoleText = !consoleValue.messages.length
-        ? ""
-        : consoleValue.messages.reduce((r, x) => `${r}\n${x}`);
-
     return (
         <>
             <h1>Online JavaScript Editor</h1>
@@ -64,33 +62,24 @@ export const JavaScriptOnlineEditor: React.FC = () => {
                 <MDBCol md="6" className="mb-3">
                     <MDBRow>
                         <MDBCol md="12" className="mb-3">
-                            <MDBInput
-                                label="Html"
+                            <JavaScriptOnlineEditorInput
                                 name="html"
-                                textarea
-                                rows={15}
                                 value={formValue.html}
                                 onChange={onChange}
                             />
                         </MDBCol>
 
                         <MDBCol md="12" className="mb-3">
-                            <MDBInput
-                                label="JavaScript"
+                            <JavaScriptOnlineEditorInput
                                 name="javaScript"
-                                textarea
-                                rows={15}
                                 value={formValue.javaScript}
                                 onChange={onChange}
                             />
                         </MDBCol>
 
                         <MDBCol md="12" className="mb-3">
-                            <MDBInput
-                                label="Css"
+                            <JavaScriptOnlineEditorInput
                                 name="css"
-                                textarea
-                                rows={15}
                                 value={formValue.css}
                                 onChange={onChange}
                             />
@@ -101,12 +90,7 @@ export const JavaScriptOnlineEditor: React.FC = () => {
                 <MDBCol md="6" className="mb-3">
                     <MDBRow>
                         <MDBCol md="12" className="mb-3">
-                            <div
-                                className="square border-gray rounded wordwrap px-2 py-1"
-                                style={{ height: 385 }}
-                            >
-                                <div dangerouslySetInnerHTML={{ __html: consoleText }} />
-                            </div>
+                            <JavaScriptOnlineEditorConsole messages={consoleValue.messages} />
                         </MDBCol>
 
                         <MDBCol md="12" className="mb-3">
@@ -124,6 +108,26 @@ export const JavaScriptOnlineEditor: React.FC = () => {
                 </MDBCol>
             </MDBRow>
         </>
+    );
+};
+
+interface JavaScriptOnlineEditorInputProps {
+    name: string;
+    value: string;
+    onChange: (name: string, value: string) => void;
+}
+
+const JavaScriptOnlineEditorInput: React.FC<JavaScriptOnlineEditorInputProps> = (
+    props: JavaScriptOnlineEditorInputProps,
+) => {
+    return (
+        <MDBInput
+            name={props.name}
+            textarea
+            rows={15}
+            value={props.value}
+            onChange={(e: any) => props.onChange(e.target.name, e.currentTarget.value)}
+        />
     );
 };
 
@@ -176,14 +180,30 @@ const JavaScriptOnlineEditorHtml: React.FC<JavaScriptOnlineEditorHtmlProps> = (
             ref={iframeRef}
             srcDoc={html}
             className="w-100 square border-gray rounded"
-            style={{ height: 385 }}
+            style={{ height: 360 }}
             frameBorder="0"
         ></iframe>
     );
 };
 
 const JavaScriptOnlineEditorEmptyHtml: React.FC = () => {
-    return <div className="w-100 square border-gray rounded" style={{ height: 385 }}></div>;
+    return <div className="w-100 square border-gray rounded" style={{ height: 360 }}></div>;
+};
+
+interface JavaScriptOnlineEditorConsoleProps {
+    messages: string[];
+}
+
+const JavaScriptOnlineEditorConsole: React.FC<JavaScriptOnlineEditorConsoleProps> = (
+    props: JavaScriptOnlineEditorConsoleProps,
+) => {
+    const consoleText = !props.messages.length ? "" : props.messages.reduce((r, x) => `${r}\n${x}`);
+
+    return (
+        <div className="square border-gray rounded wordwrap px-2 py-1" style={{ height: 260 }}>
+            <div dangerouslySetInnerHTML={{ __html: consoleText }} />
+        </div>
+    );
 };
 
 const htmlTemplate: string = `<!DOCTYPE html>
