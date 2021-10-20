@@ -1,6 +1,6 @@
-import { MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
+import { MDBCol, MDBIcon, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { Sha256GeneratorUtils } from "./Sha256GeneratorUtils";
+import { SHA256 } from "sha256-js-tools";
 
 interface FormValue {
     decoded: string;
@@ -15,12 +15,20 @@ export const Sha256Generator: React.FC = () => {
 
     const onEncode = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, decoded: value, encoded: Sha256GeneratorUtils.encode(value) });
+        setFormValue({ ...formValue, decoded: value, encoded: SHA256.generate(value) });
     };
 
     return (
         <>
-            <h1>Online SHA256 Generator</h1>
+            <h1 className="d-inline-block me-3">Online SHA256 Generator</h1>
+            <a
+                href="https://github.com/simetrio/sha256-js-tools"
+                title="Code on Github"
+                target="_blank"
+                rel="noreferrer nofollow"
+            >
+                <MDBIcon color="black" fab icon="github-square" size="2x" />
+            </a>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput
