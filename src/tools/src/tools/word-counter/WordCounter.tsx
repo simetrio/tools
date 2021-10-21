@@ -2,6 +2,9 @@ import {
     MDBCol,
     MDBInput,
     MDBRow,
+    MDBTable,
+    MDBTableBody,
+    MDBTableHead,
     MDBTabs,
     MDBTabsContent,
     MDBTabsItem,
@@ -9,22 +12,38 @@ import {
     MDBTabsPane,
 } from "mdb-react-ui-kit";
 import { useState } from "react";
-import { WordCounterUtils, IWordCount } from "./WordCounterUtils";
+import { WordCounterUtils, IWordCount, IKeyword } from "./WordCounterUtils";
 
 interface FormValue {
     text: string;
+}
+
+interface WordCountValue {
     wordCount: IWordCount | null;
 }
+
+let timeout = 0;
 
 export const WordCounter: React.FC = () => {
     const [formValue, setFormValue] = useState<FormValue>({
         text: "",
+    });
+
+    const [wordCount, setWordCount] = useState<WordCountValue>({
         wordCount: null,
     });
 
-    const onEncode = (e: any) => {
+    const executeAsync = (action: () => void) => {
+        if (timeout) {
+            window.clearTimeout(timeout);
+        }
+        timeout = window.setTimeout(action, 500);
+    };
+
+    const onCalculate = (e: any) => {
         const value = e.currentTarget.value || "";
-        setFormValue({ ...formValue, text: value, wordCount: WordCounterUtils.calculate(value) });
+        setFormValue({ ...formValue, text: value });
+        executeAsync(() => setWordCount({ wordCount: WordCounterUtils.calculate(value) }));
     };
 
     return (
@@ -37,7 +56,7 @@ export const WordCounter: React.FC = () => {
                         textarea
                         rows={15}
                         value={formValue.text}
-                        onChange={onEncode}
+                        onChange={onCalculate}
                     />
                 </MDBCol>
 
@@ -47,13 +66,13 @@ export const WordCounter: React.FC = () => {
                             {
                                 title: "Statistics",
                                 render: () => (
-                                    <WordCounterStatistics wordCount={formValue.wordCount} />
+                                    <WordCounterStatistics wordCount={wordCount.wordCount} />
                                 ),
                             },
                             {
                                 title: "Keywords",
                                 render: () => (
-                                    <WordCounterKeywords wordCount={formValue.wordCount} />
+                                    <WordCounterKeywords wordCount={wordCount.wordCount} />
                                 ),
                             },
                         ]}
@@ -86,7 +105,65 @@ const WordCounterStatistics: React.FC<WordCounterViewProps> = (props: WordCounte
 };
 
 const WordCounterKeywords: React.FC<WordCounterViewProps> = (props: WordCounterViewProps) => {
-    return <></>;
+    if (!props.wordCount) {
+        return null;
+    }
+
+    return (
+        <WordCounterTabs
+            items={[
+                {
+                    title: "x1",
+                    render: () => (
+                        <WordCounterKeywordsItems keywords={props.wordCount!.oneKeywords} />
+                    ),
+                },
+                {
+                    title: "x2",
+                    render: () => (
+                        <WordCounterKeywordsItems keywords={props.wordCount!.twoKeywords} />
+                    ),
+                },
+                {
+                    title: "x3",
+                    render: () => (
+                        <WordCounterKeywordsItems keywords={props.wordCount!.threeKeywords} />
+                    ),
+                },
+            ]}
+        />
+    );
+};
+
+interface WordCounterKeywordsItemsProps {
+    keywords: IKeyword[];
+}
+
+const WordCounterKeywordsItems: React.FC<WordCounterKeywordsItemsProps> = (
+    props: WordCounterKeywordsItemsProps,
+) => {
+    return (
+        <MDBTable small hover>
+            <MDBTableHead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Count</th>
+                    <th scope="col">% of Text</th>
+                </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+                {props.keywords.map((x) => (
+                    <tr>
+                        <td>{x.words.reduce((a, b) => `${a} ${b}`)}</td>
+                        <td>{x.count}</td>
+                        <td>
+                            <NumberView value={x.percent} />%
+                        </td>
+                    </tr>
+                ))}
+            </MDBTableBody>
+        </MDBTable>
+    );
 };
 
 interface WordCounterTabsProps {
@@ -131,4 +208,16 @@ const WordCounterTabs: React.FC<WordCounterTabsProps> = (props: WordCounterTabsP
             </MDBTabsContent>
         </>
     );
+};
+
+interface ViewParams<T> {
+    value: T;
+}
+
+const NumberView: React.FC<ViewParams<number>> = (props: ViewParams<number>) => {
+    const options: Intl.NumberFormatOptions = {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+    };
+    return <>{new Intl.NumberFormat(undefined, options).format(props.value)}</>;
 };
