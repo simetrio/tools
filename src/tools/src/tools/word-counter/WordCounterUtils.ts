@@ -51,7 +51,7 @@ function calculateOneKeywords(value: string): IKeyword[] {
     const words = getWords(value);
 
     const oneWords = words.map((x) => [x]);
-    
+
     return calculateKeywords(oneWords);
 }
 
