@@ -49,23 +49,45 @@ function calculateStatistics(value: string): IStatistic[] {
 
 function calculateOneKeywords(value: string): IKeyword[] {
     const words = getWords(value);
+
+    const oneWords = words.map((x) => [x]);
+    
+    return calculateKeywords(oneWords);
+}
+
+function calculateTwoKeywords(value: string): IKeyword[] {
+    const words = getWords(value);
+
+    const twoWords: string[][] = [];
+    for (let i = 0; i < words.length - 1; i++) {
+        twoWords.push([words[i], words[i + 1]]);
+    }
+
+    return calculateKeywords(twoWords);
+}
+
+function calculateThreeKeywords(value: string): IKeyword[] {
+    const words = getWords(value);
+
+    const threeWords: string[][] = [];
+    for (let i = 0; i < words.length - 2; i++) {
+        threeWords.push([words[i], words[i + 1], words[i + 2]]);
+    }
+
+    return calculateKeywords(threeWords);
+}
+
+function calculateKeywords(words: string[][]): IKeyword[] {
     const keywords: Map<string, number> = new Map<string, number>();
 
     words.forEach((x) => {
-        if (hasNotStopWord([x])) {
-            keywords.set(x, (keywords.get(x) || 0) + 1);
+        if (hasNotStopWord(x)) {
+            const word = x.reduce((a, b) => `${a} ${b}`);
+            keywords.set(word, (keywords.get(word) || 0) + 1);
         }
     });
 
     return toKeywordsArray(keywords);
-}
-
-function calculateTwoKeywords(value: string): IKeyword[] {
-    return [];
-}
-
-function calculateThreeKeywords(value: string): IKeyword[] {
-    return [];
 }
 
 function statistic(name: string, value: number): IStatistic {
@@ -83,20 +105,14 @@ function keyword(word: string, count: number, total: number): IKeyword {
     };
 }
 
-function toKeywordsArray(
-    map: Map<string, number>,
-    filter?: (keyword: IKeyword) => boolean,
-): IKeyword[] {
+function toKeywordsArray(map: Map<string, number>): IKeyword[] {
     const keywords: IKeyword[] = [];
 
     map.forEach((value: number, key: string) => {
         keywords.push(keyword(key, value, map.size));
     });
 
-    return keywords
-        .filter((x) => !filter || filter(x))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 50);
+    return keywords.sort((a, b) => b.count - a.count).slice(0, 50);
 }
 
 function getWords(value: string): string[] {
