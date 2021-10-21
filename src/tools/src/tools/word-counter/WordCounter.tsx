@@ -93,14 +93,16 @@ const WordCounterStatistics: React.FC<WordCounterViewProps> = (props: WordCounte
     }
 
     return (
-        <>
-            {props.wordCount.statistics.map((x) => (
-                <MDBRow>
-                    <MDBCol sm="6">{x.name}</MDBCol>
-                    <MDBCol sm="6">{x.value}</MDBCol>
-                </MDBRow>
-            ))}
-        </>
+        <MDBTable small hover>
+            <MDBTableBody>
+                {props.wordCount.statistics.map((x) => (
+                    <tr>
+                        <td>{x.name}</td>
+                        <td>{x.value}</td>
+                    </tr>
+                ))}
+            </MDBTableBody>
+        </MDBTable>
     );
 };
 
