@@ -50,17 +50,17 @@ export const WordCounter: React.FC = () => {
         <>
             <h1>Online Word Counter</h1>
             <MDBRow>
-                <MDBCol md="6" className="mb-3">
+                <MDBCol md="7" className="mb-3">
                     <MDBInput
                         label="Text"
                         textarea
-                        rows={15}
+                        rows={19}
                         value={formValue.text}
                         onChange={onCalculate}
                     />
                 </MDBCol>
 
-                <MDBCol md="6" className="mb-3">
+                <MDBCol md="5" className="mb-3">
                     <WordCounterTabs
                         items={[
                             {
