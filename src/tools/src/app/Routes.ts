@@ -15,6 +15,7 @@ import { TranslitFromRussianToEnglish } from "../tools/translit-from-russian-to-
 import { UnicodeToUtf8Converter } from "../tools/unicode-to-utf8-converter/UnicodeToUtf8Converter";
 import { UnitConverter } from "../tools/unit-converter/UnitConverter";
 import { UrlEncodeDecode } from "../tools/url-encode-decode/UrlEncodeDecode";
+import { WordCounter } from "../tools/word-counter/WordCounter";
 
 export interface Route {
     url: string;
@@ -119,5 +120,11 @@ export const AllRoutes: Route[] = [
         name: "Unicode To UTF8 Converter",
         title: "Online Unicode To UTF8 Converter - Olrix Tools",
         component: UnicodeToUtf8Converter,
+    },
+    {
+        url: "word-counter",
+        name: "Word Counter",
+        title: "Online Word Counter - Olrix Tools",
+        component: WordCounter,
     },
 ];
