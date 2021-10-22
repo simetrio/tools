@@ -50,7 +50,6 @@ export const Base64EncodeFileOrImage: React.FC = () => {
 
     return (
         <>
-            <div className="h1-container"></div>
             <div className="mb-3">
                 <MDBBtn onClick={onChooseFile}>Choose file</MDBBtn>
                 <MDBBtn

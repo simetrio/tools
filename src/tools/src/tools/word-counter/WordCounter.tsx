@@ -48,7 +48,6 @@ export const WordCounter: React.FC = () => {
 
     return (
         <>
-            <div className="h1-container"></div>
             <MDBRow>
                 <MDBCol md="7" className="mb-3">
                     <MDBInput

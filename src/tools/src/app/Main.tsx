@@ -26,7 +26,6 @@ export const Main: React.FC = () => {
 
     return (
         <>
-            <div className="h1-container"></div>
             <div className="m-4 mt-2">
                 <MDBInput label="Search" value={formValue.search} onChange={onSearch} />
             </div>
