@@ -5,3 +5,4 @@ PublishTools.exe -mode ReplaceInFile --name "../../docs/index.html" --from "{H1}
 PublishTools.exe -mode ReplaceInFile --name "../../docs/index.html" --from "{Canonical}" --to "/"
 PublishTools.exe -mode ReplaceInFile --name "../../docs/index.html" --from "{Text}" --to "<div><center>Olrix Tools</center></div>"
 PublishTools.exe -mode CreatePages --pages "src/app/Routes.ts" --to "../../docs/tools" --source "build/index.html" --url "/tools/"
+PublishTools.exe -mode CreateSiteMap --on "../../docs" --url "https://www.olrix.net/"
