@@ -75,6 +75,10 @@ export const WordCounter: React.FC = () => {
                                     <WordCounterKeywords wordCount={wordCount.wordCount} />
                                 ),
                             },
+                            {
+                                title: "Tools",
+                                render: () => <WordCounterTools text={formValue.text} />,
+                            },
                         ]}
                     />
                 </MDBCol>
@@ -210,6 +214,51 @@ const WordCounterTabs: React.FC<WordCounterTabsProps> = (props: WordCounterTabsP
             </MDBTabsContent>
         </>
     );
+};
+
+interface WordCounterToolsProps {
+    text: string;
+}
+
+const WordCounterTools: React.FC<WordCounterToolsProps> = (props: WordCounterToolsProps) => {
+    return (
+        <WordCounterTabs
+            items={[
+                {
+                    title: "One line",
+                    render: () => <WordCounterToolsOneLine {...props} />,
+                },
+                {
+                    title: "Html",
+                    render: () => <WordCounterToolsHtml {...props} />,
+                },
+            ]}
+        />
+    );
+};
+
+const WordCounterToolsOneLine: React.FC<WordCounterToolsProps> = (props: WordCounterToolsProps) => {
+    if (!props.text.length) {
+        return null;
+    }
+
+    const line = props.text.replace(/\n/g, " ");
+    return <MDBInput value={line} rows={14} textarea={true} readonly={true} />;
+};
+
+const WordCounterToolsHtml: React.FC<WordCounterToolsProps> = (props: WordCounterToolsProps) => {
+    if (!props.text.length) {
+        return null;
+    }
+
+    const line = props.text
+        .split("\n")
+        .map((x) => x.trim())
+        .filter((x) => x !== "")
+        .map((x) => `<p>${x}</p>`)
+        .reduce((a, b) => `${a}\n${b}`);
+
+    return <MDBInput value={line} rows={14} textarea={true} readonly={true} />;
 };
 
 interface ViewParams<T> {
