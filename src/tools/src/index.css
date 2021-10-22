@@ -22,16 +22,20 @@ h3 {
     white-space: -pre-wrap;     /* Opera <7 */   
     white-space: -o-pre-wrap;   /* Opera 7 */    
     word-wrap: break-word;      /* IE */
- }
+}
 
- .group-drop-down-right {
+.group-drop-down-right {
     margin-left: -1px;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     min-width: 128px;
     padding-top: .59rem !important;
- }
+}
 
- .fa-1-5x {
+.fa-1-5x {
     font-size: 1.5em;
+}
+
+#text h2 {
+    font-size: 1.3rem !important;
 }

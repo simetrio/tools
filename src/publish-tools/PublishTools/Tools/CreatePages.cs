@@ -22,17 +22,19 @@ namespace PublishTools.Tools
         
         private IEnumerable<Page> Parse(string pagesPath)
         {
-            var text = Text.Load(pagesPath).SubstringAfter("AllRoutes");
+            var pagesText = Text.Load(pagesPath).SubstringAfter("AllRoutes");
 
-            while (text.Contains("{"))
+            while (pagesText.Contains("{"))
             {
-                var url = text.SubstringAfter("{").SubstringAfter("url: \"").GetBefore("\"");
-                var title = text.SubstringAfter("title: \"").GetBefore("\"");
+                var url = pagesText.SubstringAfter("{").SubstringAfter("url: \"").GetBefore("\"");
+                var title = pagesText.SubstringAfter("title: \"").GetBefore("\"");
+                var text = pagesText.SubstringAfter("text: \"").GetBefore("\"");
 
                 yield return new Page
                 {
                     Url = url,
                     Title = title,
+                    Text = text,
                 };
             }
         }
@@ -50,6 +52,7 @@ namespace PublishTools.Tools
             var text = Encoding.UTF8.GetString(File.ReadAllBytes(source));
 
             text = text.Replace("{Title}", page.Title);
+            text = text.Replace("{Text}", page.Text);
             
             File.WriteAllBytes(toFile, Encoding.UTF8.GetBytes(text));
         }
@@ -89,6 +92,7 @@ namespace PublishTools.Tools
         {
             public string Url { get; set; }
             public string Title { get; set; }
+            public string Text { get; set; }
         }
     }
 }
