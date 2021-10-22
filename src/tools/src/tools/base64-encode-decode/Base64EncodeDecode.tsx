@@ -39,7 +39,7 @@ export const Base64EncodeDecode: React.FC = () => {
                     <MDBInput
                         label="Decoded Base64"
                         textarea
-                        rows={20}
+                        rows={19}
                         value={formValue.decoded}
                         onChange={onEncode}
                     />
@@ -49,7 +49,7 @@ export const Base64EncodeDecode: React.FC = () => {
                     <MDBInput
                         label="Encoded Base64"
                         textarea
-                        rows={20}
+                        rows={19}
                         value={formValue.encoded}
                         onChange={onDecode}
                     />
