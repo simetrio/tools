@@ -73,7 +73,7 @@ export const JavaScriptOnlineEditor: React.FC = () => {
 
     return (
         <>
-            <h1>Online JavaScript Editor</h1>
+            <div className="h1-container"></div>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <JavaScriptOnlineEditorTabs

@@ -28,12 +28,14 @@ namespace PublishTools.Tools
             {
                 var url = pagesText.SubstringAfter("{").SubstringAfter("url: \"").GetBefore("\"");
                 var title = pagesText.SubstringAfter("title: \"").GetBefore("\"");
+                var h1 = pagesText.SubstringAfter("h1: \"").GetBefore("\"");
                 var text = pagesText.SubstringAfter("text: \"").GetBefore("\"");
 
                 yield return new Page
                 {
                     Url = url,
                     Title = title,
+                    H1 = h1,
                     Text = text,
                 };
             }
@@ -52,6 +54,7 @@ namespace PublishTools.Tools
             var text = Encoding.UTF8.GetString(File.ReadAllBytes(source));
 
             text = text.Replace("{Title}", page.Title);
+            text = text.Replace("{H1}", page.H1);
             text = text.Replace("{Text}", page.Text);
             
             File.WriteAllBytes(toFile, Encoding.UTF8.GetBytes(text));
@@ -92,6 +95,7 @@ namespace PublishTools.Tools
         {
             public string Url { get; set; }
             public string Title { get; set; }
+            public string H1 { get; set; }
             public string Text { get; set; }
         }
     }

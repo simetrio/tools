@@ -17,7 +17,7 @@ import { Unit, UnitConverterUtils, UnitGroups, UnitTypes } from "./UnitConverter
 export const UnitConverter: React.FC = () => {
     return (
         <>
-            <h1>Online Unit Converter</h1>
+            <div className="h1-container"></div>
             {UnitTypes.map((x) => (
                 <MDBCard border="primary" className="mb-3">
                     <MDBCardHeader background="primary" className="text-white">

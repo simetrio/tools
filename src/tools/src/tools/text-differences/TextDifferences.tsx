@@ -49,7 +49,7 @@ export const TextDifferences: React.FC = () => {
 
     return (
         <>
-            <h1>Online Finding Differences Between Texts</h1>
+            <div className="h1-container"></div>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput

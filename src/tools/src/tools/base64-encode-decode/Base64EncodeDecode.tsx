@@ -25,15 +25,7 @@ export const Base64EncodeDecode: React.FC = () => {
 
     return (
         <>
-            <h1 className="d-inline-block me-3">Online Base64 Encode/Decode Text</h1>
-            <a
-                href="https://github.com/simetrio/base64-js-tools"
-                title="Code on Github"
-                target="_blank"
-                rel="noreferrer nofollow"
-            >
-                <MDBIcon color="black" fab icon="github-square" size="2x" />
-            </a>
+            <div className="h1-container"></div>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput

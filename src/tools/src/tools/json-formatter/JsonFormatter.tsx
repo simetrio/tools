@@ -46,7 +46,7 @@ export const JsonFormatter: React.FC = () => {
 
     return (
         <>
-            <h1>Online Json Formatter</h1>
+            <div className="h1-container"></div>
             <MDBRow>
                 <MDBCol md="6" className="mb-3">
                     <MDBInput

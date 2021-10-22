@@ -50,15 +50,7 @@ export const Base64EncodeFileOrImage: React.FC = () => {
 
     return (
         <>
-            <h1 className="d-inline-block me-3">Online Base64 Encode File Or Image</h1>
-            <a
-                href="https://github.com/simetrio/base64-js-tools"
-                title="Code on Github"
-                target="_blank"
-                rel="noreferrer nofollow"
-            >
-                <MDBIcon color="black" fab icon="github-square" size="2x" />
-            </a>
+            <div className="h1-container"></div>
             <div className="mb-3">
                 <MDBBtn onClick={onChooseFile}>Choose file</MDBBtn>
                 <MDBBtn
