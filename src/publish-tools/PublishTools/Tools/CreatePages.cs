@@ -12,11 +12,12 @@ namespace PublishTools.Tools
             var pages = commandLine.Get("--pages");
             var to = commandLine.Get("--to");
             var source = commandLine.Get("--source");
+            var url = commandLine.Get("--url");
             Console.WriteLine($"Create pages '{pages}' to '{to}' from source '{source}'");
             
             foreach (var page in Parse(pages))
             {
-                Create(page, to, source);
+                Create(page, to, source, url);
             }
         }
         
@@ -41,7 +42,7 @@ namespace PublishTools.Tools
             }
         }
 
-        private void Create(Page page, string to, string source)
+        private void Create(Page page, string to, string source, string url)
         {
             var toDir = Path.Combine(to, page.Url);
             var toFile = Path.Combine(toDir, new FileInfo(source).Name);
@@ -54,6 +55,7 @@ namespace PublishTools.Tools
             var text = Encoding.UTF8.GetString(File.ReadAllBytes(source));
 
             text = text.Replace("{Title}", page.Title);
+            text = text.Replace("{Canonical}", $"{url}{page.Url}/");
             text = text.Replace("{H1}", page.H1);
             text = text.Replace("{Text}", page.Text);
             
